@@ -1,0 +1,83 @@
+{% extends "crud/list.html" %}
+
+{% block table_header %}
+<tr>
+    <th>Academic Year</th>
+    <th>Semester</th>
+    <th>Deadline</th>
+    <th>Status</th>
+    <th class="text-end">Actions</th>
+</tr>
+{% endblock %}
+
+{% block table_rows %}
+
+{% for semester in object_list %}
+
+<tr>
+
+    <td>{{ semester.academic_year }}</td>
+
+    <td>{{ semester.get_semester_display }}</td>
+
+    <td>{{ semester.payment_deadline|date:"d M Y" }}</td>
+
+    <td>
+
+        {% if semester.is_active %}
+
+            <span class="badge bg-success">
+
+                Active
+
+            </span>
+
+        {% else %}
+
+            <span class="badge bg-secondary">
+
+                Inactive
+
+            </span>
+
+        {% endif %}
+
+    </td>
+
+    <td class="text-end">
+
+        <a
+            href="{% url 'finance:semester-update' semester.pk %}"
+            class="btn btn-sm btn-outline-primary">
+
+            <i class="bi bi-pencil"></i>
+
+        </a>
+
+        <a
+            href="{% url 'finance:semester-delete' semester.pk %}"
+            class="btn btn-sm btn-outline-danger">
+
+            <i class="bi bi-trash"></i>
+
+        </a>
+
+    </td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+    <td colspan="5" class="text-center py-4 text-muted">
+
+        No semesters found.
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+{% endblock %}

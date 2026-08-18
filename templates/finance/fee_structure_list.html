@@ -1,0 +1,66 @@
+{% extends "crud/list.html" %}
+
+{% block table_header %}
+<tr>
+    <th>Academic Year</th>
+    <th>Semester</th>
+    <th>Department</th>
+    <th>Level</th>
+    <th>Amount</th>
+    <th class="text-end">Actions</th>
+</tr>
+{% endblock %}
+
+{% block table_rows %}
+
+{% for fee in object_list %}
+
+<tr>
+
+    <td>{{ fee.semester.academic_year }}</td>
+
+    <td>{{ fee.semester.get_semester_display }}</td>
+
+    <td>{{ fee.department }}</td>
+
+    <td>{{ fee.level }}</td>
+
+    <td>GH₵ {{ fee.amount }}</td>
+
+    <td class="text-end">
+
+        <a
+            href="{% url 'finance:fee-structure-update' fee.pk %}"
+            class="btn btn-sm btn-outline-primary">
+
+            <i class="bi bi-pencil"></i>
+
+        </a>
+
+        <a
+            href="{% url 'finance:fee-structure-delete' fee.pk %}"
+            class="btn btn-sm btn-outline-danger">
+
+            <i class="bi bi-trash"></i>
+
+        </a>
+
+    </td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+    <td colspan="6" class="text-center py-4">
+
+        No fee structures found.
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+{% endblock %}

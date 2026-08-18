@@ -1,0 +1,215 @@
+{% extends "student_auth_base.html" %}
+
+{% block title %}
+Password Reset Request
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-5 col-md-7">
+
+            <div class="card shadow border-0 rounded-4">
+
+                <div class="card-body p-5">
+
+                    <!-- Header -->
+
+                    <div class="text-center mb-4">
+
+                        <i class="bi bi-key-fill display-4 text-primary"></i>
+
+                        <h2 class="fw-bold mt-3">
+
+                            Password Reset Request
+
+                        </h2>
+
+                        <p class="text-muted">
+
+                            Forgot your password?
+
+                            Submit a request below and it will be reviewed
+                            by the IT Support.
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- Messages -->
+
+                    {% if messages %}
+
+                        {% for message in messages %}
+
+                            <div class="alert alert-{{ message.tags }}">
+
+                                {{ message }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+
+                    <form method="post" id="resetForm">
+
+                        {% csrf_token %}
+
+
+                        <!-- Student ID -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+
+                                Student ID
+
+                            </label>
+
+                            {{ form.student_id }}
+
+                            {% for error in form.student_id.errors %}
+
+                                <div class="text-danger small">
+
+                                    {{ error }}
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+
+
+                        <!-- Reason -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+
+                                Reason for Password Reset
+
+                            </label>
+
+                            {{ form.reason }}
+
+                            <div class="form-text">
+
+                                Example:
+
+                                Forgotten password,
+
+                                account locked,
+
+                                temporary password expired,
+
+                                or unable to sign in.
+
+                            </div>
+
+                            {% for error in form.reason.errors %}
+
+                                <div class="text-danger small">
+
+                                    {{ error }}
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+
+
+                        <!-- Info -->
+
+                        <div class="alert alert-info">
+
+                            <i class="bi bi-info-circle-fill me-2"></i>
+
+                            Your request will be reviewed by the IT Support
+                             or Administrator.
+
+                            A new temporary password will be sent if
+                            approved.
+
+                        </div>
+
+
+
+                        <!-- Buttons -->
+
+                        <div class="d-flex justify-content-between">
+
+                            <a href="{% url 'portal:login' %}"
+
+                               class="btn btn-outline-secondary">
+
+                                Cancel
+
+                            </a>
+
+
+
+                            <button
+
+                                type="submit"
+
+                                class="btn btn-primary"
+
+                                id="submitBtn">
+
+                                <span
+
+                                    class="spinner-border spinner-border-sm d-none"
+
+                                    id="spinner">
+
+                                </span>
+
+                                <span id="btnText">
+
+                                    Submit Request
+
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+document.getElementById("resetForm").addEventListener("submit", function(){
+
+    document.getElementById("spinner").classList.remove("d-none");
+
+    document.getElementById("btnText").innerHTML = "Submitting...";
+
+    document.getElementById("submitBtn").disabled = true;
+
+});
+
+</script>
+
+{% endblock %}

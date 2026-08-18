@@ -1,0 +1,840 @@
+{% extends "admin_base.html" %}
+
+
+{% block title %}
+Payment Settings
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<!-- Header -->
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+
+    <div>
+
+        <h2 class="fw-bold mb-1">
+
+            Payment Settings
+
+        </h2>
+
+
+        <p class="text-muted mb-0">
+
+            Configure CampusPay financial transaction behaviour.
+
+        </p>
+
+    </div>
+
+
+
+    <div>
+
+        <a href="{% url 'administration:dashboard' %}"
+           class="btn btn-outline-secondary">
+
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back
+
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<form method="post">
+
+{% csrf_token %}
+
+
+
+<!-- ============================= -->
+<!-- PAYMENT RULES -->
+<!-- ============================= -->
+
+
+<div class="card shadow-sm border-0 mb-4">
+
+
+<div class="card-header bg-white">
+
+
+<h5 class="fw-bold mb-0">
+
+<i class="bi bi-wallet2 me-2 text-primary"></i>
+
+Payment Rules
+
+</h5>
+
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<div class="row g-4">
+
+
+<div class="col-md-6">
+
+<div class="form-check form-switch">
+
+{{ form.allow_partial_payment }}
+
+<label class="form-check-label">
+
+Allow Part Payment
+
+</label>
+
+</div>
+
+</div>
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check form-switch">
+
+{{ form.prevent_overpayment }}
+
+<label class="form-check-label">
+
+Prevent Overpayment
+
+</label>
+
+</div>
+
+</div>
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check form-switch">
+
+{{ form.require_reference }}
+
+<label class="form-check-label">
+
+Require Transaction Reference
+
+</label>
+
+</div>
+
+</div>
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Minimum Payment Amount
+
+</label>
+
+
+{{ form.minimum_payment_amount }}
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+<!-- ============================= -->
+<!-- PAYMENT METHODS -->
+<!-- ============================= -->
+
+
+<div class="card shadow-sm border-0 mb-4">
+
+
+<div class="card-header bg-white">
+
+
+<h5 class="fw-bold mb-0">
+
+<i class="bi bi-credit-card me-2 text-success"></i>
+
+Payment Methods
+
+</h5>
+
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<div class="row g-4">
+
+
+<div class="col-md-3">
+
+<div class="form-check form-switch">
+
+{{ form.allow_cash }}
+
+<label>
+
+Cash
+
+</label>
+
+</div>
+
+</div>
+
+
+
+<div class="col-md-3">
+
+<div class="form-check form-switch">
+
+{{ form.allow_mobile_money }}
+
+<label>
+
+Mobile Money
+
+</label>
+
+</div>
+
+</div>
+
+
+
+
+<div class="col-md-3">
+
+<div class="form-check form-switch">
+
+{{ form.allow_bank_transfer }}
+
+<label>
+
+Bank Transfer
+
+</label>
+
+</div>
+
+</div>
+
+
+
+
+<div class="col-md-3">
+
+<div class="form-check form-switch">
+
+{{ form.allow_card_payment }}
+
+<label>
+
+Card Payment
+
+</label>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ============================= -->
+<!-- CURRENCY -->
+<!-- ============================= -->
+
+
+<div class="card shadow-sm border-0 mb-4">
+
+
+<div class="card-header bg-white">
+
+
+<h5 class="fw-bold mb-0">
+
+<i class="bi bi-currency-exchange me-2 text-warning"></i>
+
+Currency Configuration
+
+</h5>
+
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<div class="row g-4">
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Currency
+
+</label>
+
+
+{{ form.currency }}
+
+
+</div>
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Currency Symbol
+
+</label>
+
+
+{{ form.currency_symbol }}
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- ============================= -->
+<!-- RECEIPTS -->
+<!-- ============================= -->
+
+
+<div class="card shadow-sm border-0 mb-4">
+
+
+<div class="card-header bg-white">
+
+
+<h5 class="fw-bold mb-0">
+
+<i class="bi bi-receipt me-2 text-danger"></i>
+
+Receipt Configuration
+
+</h5>
+
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<div class="row">
+
+
+<div class="col-md-6">
+
+
+<div class="form-check form-switch">
+
+{{ form.auto_generate_receipt }}
+
+
+<label>
+
+Automatically Generate Receipt
+
+</label>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="col-md-6">
+
+
+<div class="form-check form-switch">
+
+
+{{ form.require_payment_approval }}
+
+
+<label>
+
+Require Payment Approval
+
+</label>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- ============================= -->
+<!-- REFERENCES -->
+<!-- ============================= -->
+
+
+<div class="card shadow-sm border-0 mb-4">
+
+
+<div class="card-header bg-white">
+
+
+<h5 class="fw-bold mb-0">
+
+<i class="bi bi-upc-scan me-2 text-info"></i>
+
+Transaction Reference
+
+</h5>
+
+
+</div>
+
+
+
+
+<div class="card-body">
+
+
+<div class="row g-4">
+
+
+<div class="col-md-4">
+
+
+<label class="form-label">
+
+Reference Prefix
+
+</label>
+
+
+{{ form.reference_prefix }}
+
+
+</div>
+
+
+
+<div class="col-md-4">
+
+
+<label class="form-label">
+
+Reference Length
+
+</label>
+
+
+{{ form.reference_length }}
+
+
+</div>
+
+
+
+
+<div class="col-md-4">
+
+
+<div class="form-check form-switch mt-4">
+
+{{ form.auto_generate_reference }}
+
+<label>
+
+Auto Generate Reference
+
+</label>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="col-md-6">
+
+
+<div class="form-check form-switch">
+
+{{ form.prevent_duplicate_reference }}
+
+
+<label>
+
+Prevent Duplicate Reference
+
+</label>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- ============================= -->
+<!-- ADVANCED -->
+<!-- ============================= -->
+
+
+<div class="card shadow-sm border-0 mb-4">
+
+
+<div class="card-header bg-white">
+
+
+<h5 class="fw-bold mb-0">
+
+<i class="bi bi-shield-check me-2 text-dark"></i>
+
+Advanced Controls
+
+</h5>
+
+
+</div>
+
+
+<div class="card-body">
+
+
+<div class="row g-4">
+
+
+<div class="col-md-6">
+
+<div class="form-check form-switch">
+
+{{ form.allow_edit_after_payment }}
+
+<label>
+
+Allow Editing After Payment
+
+</label>
+
+
+</div>
+
+</div>
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check form-switch">
+
+{{ form.allow_late_payment }}
+
+<label>
+
+Allow Late Payment
+
+</label>
+
+
+</div>
+
+</div>
+
+
+
+
+<div class="col-md-6">
+
+
+<div class="form-check form-switch">
+
+
+{{ form.enable_late_fee }}
+
+
+<label>
+
+Enable Late Fee
+
+</label>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label">
+
+Grace Period Days
+
+</label>
+
+
+{{ form.grace_period_days }}
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+<!-- ============================= -->
+<!-- STUDENT PORTAL -->
+<!-- ============================= -->
+
+
+<div class="card shadow-sm border-0 mb-4">
+
+
+<div class="card-header bg-white">
+
+
+<h5 class="fw-bold mb-0">
+
+<i class="bi bi-mortarboard me-2 text-primary"></i>
+
+Student Portal Controls
+
+</h5>
+
+
+</div>
+
+
+<div class="card-body">
+
+
+<div class="row">
+
+
+<div class="col-md-6">
+
+
+<div class="form-check form-switch">
+
+
+{{ form.allow_student_online_payment }}
+
+
+<label>
+
+Allow Online Payment
+
+</label>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="col-md-6">
+
+
+<div class="form-check form-switch">
+
+
+{{ form.allow_student_receipt_download }}
+
+
+<label>
+
+Allow Receipt Download
+
+</label>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="text-end mb-4">
+
+
+<a href="{% url 'administration:dashboard' %}"
+class="btn btn-light me-2">
+
+Cancel
+
+</a>
+
+
+
+<button type="submit"
+class="btn btn-primary">
+
+
+<i class="bi bi-save me-2"></i>
+
+Save Payment Settings
+
+
+</button>
+
+
+</div>
+
+
+
+</form>
+
+
+
+</div>
+
+
+{% endblock %}

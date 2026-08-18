@@ -1,0 +1,47 @@
+/*=========================================
+DESIGN VARIABLES
+=========================================*/
+
+:root {
+
+  /* Brand */
+
+  --primary: #0D6EFD;
+  --primary-dark: #084298;
+
+  --success: #198754;
+  --warning: #F59E0B;
+  --danger: #DC3545;
+
+  /* Background */
+
+  --background: #F5F9FF;
+  --background-alt: #EEF6FF;
+
+  --surface: #FFFFFF;
+
+  /* Text */
+
+  --text: #1E293B;
+  --text-light: #475569;
+  --muted: #64748B;
+
+  /* Borders */
+
+  --border: #E2E8F0;
+
+  /* Radius */
+
+  --radius-sm: 12px;
+  --radius: 18px;
+  --radius-lg: 24px;
+
+  /* Shadow */
+
+  --shadow-sm: 0 6px 18px rgba(15, 23, 42, .05);
+
+  --shadow: 0 12px 30px rgba(15, 23, 42, .08);
+
+  --shadow-lg: 0 20px 45px rgba(15, 23, 42, .10);
+
+}

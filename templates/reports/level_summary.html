@@ -1,0 +1,74 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<h3>
+Level Summary Report
+</h3>
+
+
+<div class="card shadow-sm mt-4">
+
+
+<div class="card-body">
+
+
+<table class="table">
+
+
+<thead>
+
+<tr>
+
+<th>Level</th>
+
+<th>Total Members</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+{% for item in levels %}
+
+<tr>
+
+<td>
+{{ item.level }}
+</td>
+
+
+<td>
+{{ item.total }}
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

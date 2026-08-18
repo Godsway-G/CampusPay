@@ -1,0 +1,386 @@
+{% extends "admin_base.html" %}
+
+
+{% block title %}
+Receipt Settings
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+    <!-- Header -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+
+                Receipt Settings
+
+            </h2>
+
+
+            <p class="text-muted mb-0">
+
+                Configure receipt numbering, appearance and generated receipt information.
+
+            </p>
+
+        </div>
+
+
+
+        <div>
+
+            <a href="{% url 'administration:dashboard' %}"
+               class="btn btn-outline-secondary">
+
+
+                <i class="bi bi-arrow-left me-2"></i>
+
+                Back to Settings
+
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- Form Card -->
+
+
+    <div class="card shadow-sm border-0">
+
+
+        <div class="card-header bg-white">
+
+
+            <h5 class="fw-bold mb-0">
+
+                Receipt Configuration
+
+            </h5>
+
+
+        </div>
+
+
+
+        <div class="card-body">
+
+
+            <form method="post">
+
+
+                {% csrf_token %}
+
+
+
+                <div class="row g-4">
+
+
+
+                    <!-- Receipt Prefix -->
+
+                    <div class="col-md-6">
+
+
+                        <label class="form-label fw-semibold">
+
+                            Receipt Prefix
+
+                        </label>
+
+
+                        {{ form.receipt_prefix }}
+
+
+                        <small class="text-muted">
+
+                            Example: CP-00001
+
+                        </small>
+
+
+                    </div>
+
+
+
+
+
+                    <!-- Starting Number -->
+
+                    <div class="col-md-6">
+
+
+                        <label class="form-label fw-semibold">
+
+                            Starting Number
+
+                        </label>
+
+
+                        {{ form.starting_number }}
+
+
+                    </div>
+
+
+
+
+
+
+                    <!-- Logo -->
+
+                    <div class="col-md-6">
+
+
+                        <div class="form-check form-switch">
+
+
+                            {{ form.include_logo }}
+
+
+                            <label class="form-check-label">
+
+                                Display Association Logo
+
+                            </label>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+                    <!-- Contact -->
+
+                    <div class="col-md-6">
+
+
+                        <div class="form-check form-switch">
+
+
+                            {{ form.show_phone }}
+
+
+                            <label class="form-check-label">
+
+                                Show Phone Number
+
+                            </label>
+
+
+                        </div>
+
+
+
+                        <div class="form-check form-switch mt-2">
+
+
+                            {{ form.show_email }}
+
+
+                            <label class="form-check-label">
+
+                                Show Email Address
+
+                            </label>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+                    <!-- Signature Section -->
+
+
+                    <div class="col-12">
+
+
+                        <hr>
+
+
+                        <h6 class="fw-bold">
+
+                            Signature Information
+
+                        </h6>
+
+
+                    </div>
+
+
+
+
+
+
+                    <div class="col-md-6">
+
+
+                        <label class="form-label fw-semibold">
+
+                            Signature Name
+
+                        </label>
+
+
+                        {{ form.signature_name }}
+
+
+                    </div>
+
+
+
+
+
+
+                    <div class="col-md-6">
+
+
+                        <label class="form-label fw-semibold">
+
+                            Signature Position
+
+                        </label>
+
+
+                        {{ form.signature_position }}
+
+
+                    </div>
+
+
+
+
+
+
+
+                    <div class="col-md-6">
+
+
+                        <div class="form-check form-switch">
+
+
+                            {{ form.include_signature }}
+
+
+                            <label class="form-check-label">
+
+                                Include Signature Section
+
+                            </label>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+                    <!-- Footer -->
+
+
+                    <div class="col-12">
+
+
+                        <label class="form-label fw-semibold">
+
+                            Receipt Footer Message
+
+                        </label>
+
+
+                        {{ form.footer_message }}
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+                <div class="mt-4 d-flex justify-content-end gap-2">
+
+
+                    <a href="{% url 'administration:dashboard' %}"
+                       class="btn btn-light">
+
+
+                        Cancel
+
+
+                    </a>
+
+
+
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+
+                        <i class="bi bi-save me-2"></i>
+
+
+                        Save Receipt Settings
+
+
+                    </button>
+
+
+
+                </div>
+
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+{% endblock %}

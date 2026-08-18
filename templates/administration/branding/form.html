@@ -1,0 +1,247 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+Branding Settings
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                Branding Settings
+            </h2>
+
+            <p class="text-muted mb-0">
+                Configure CampusPay branding, colours and visual identity.
+            </p>
+
+        </div>
+
+        <a href="{% url 'administration:dashboard' %}"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back
+
+        </a>
+
+    </div>
+
+
+    <form method="post"
+          enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-header bg-white">
+
+                <h5 class="fw-bold mb-0">
+                    CampusPay Branding
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row g-4">
+
+                    <!-- Main Logo -->
+
+                    <div class="col-md-4">
+
+                        <label class="form-label fw-semibold">
+                            Main Logo
+                        </label>
+
+                        {{ form.logo }}
+
+                        {% if form.instance.logo %}
+                            <img src="{{ form.instance.logo.url }}"
+                                 class="img-thumbnail mt-3"
+                                 style="max-height:100px;">
+                        {% endif %}
+
+                    </div>
+
+                    <!-- Login Logo -->
+
+                    <div class="col-md-4">
+
+                        <label class="form-label fw-semibold">
+                            Login Logo
+                        </label>
+
+                        {{ form.login_logo }}
+
+                        {% if form.instance.login_logo %}
+                            <img src="{{ form.instance.login_logo.url }}"
+                                 class="img-thumbnail mt-3"
+                                 style="max-height:100px;">
+                        {% endif %}
+
+                    </div>
+
+                    <!-- Receipt Logo -->
+
+                    <div class="col-md-4">
+
+                        <label class="form-label fw-semibold">
+                            Receipt Logo
+                        </label>
+
+                        {{ form.receipt_logo }}
+
+                        {% if form.instance.receipt_logo %}
+                            <img src="{{ form.instance.receipt_logo.url }}"
+                                 class="img-thumbnail mt-3"
+                                 style="max-height:100px;">
+                        {% endif %}
+
+                    </div>
+
+                    <!-- Favicon -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+                            Favicon
+                        </label>
+
+                        {{ form.favicon }}
+
+                        {% if form.instance.favicon %}
+                            <img src="{{ form.instance.favicon.url }}"
+                                 class="img-thumbnail mt-3"
+                                 style="max-height:60px;">
+                        {% endif %}
+
+                    </div>
+
+                    <!-- Theme -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+                            Theme
+                        </label>
+
+                        {{ form.theme }}
+
+                    </div>
+
+                    <!-- Primary Color -->
+
+                    <div class="col-md-3">
+
+                        <label class="form-label fw-semibold">
+                            Primary Color
+                        </label>
+
+                        {{ form.primary_color }}
+
+                    </div>
+
+                    <!-- Secondary Color -->
+
+                    <div class="col-md-3">
+
+                        <label class="form-label fw-semibold">
+                            Secondary Color
+                        </label>
+
+                        {{ form.secondary_color }}
+
+                    </div>
+
+                    <!-- Accent Color -->
+
+                    <div class="col-md-3">
+
+                        <label class="form-label fw-semibold">
+                            Accent Color
+                        </label>
+
+                        {{ form.accent_color }}
+
+                    </div>
+
+                    <!-- Sidebar Color -->
+
+                    <div class="col-md-3">
+
+                        <label class="form-label fw-semibold">
+                            Sidebar Color
+                        </label>
+
+                        {{ form.sidebar_color }}
+
+                    </div>
+
+                    <!-- Footer Text -->
+
+                    <div class="col-12">
+
+                        <label class="form-label fw-semibold">
+                            Footer Text
+                        </label>
+
+                        {{ form.footer_text }}
+
+                    </div>
+
+                    <!-- Copyright -->
+
+                    <div class="col-12">
+
+                        <label class="form-label fw-semibold">
+                            Copyright Text
+                        </label>
+
+                        {{ form.copyright_text }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card-footer bg-white">
+
+                <div class="d-flex justify-content-end gap-2">
+
+                    <a href="{% url 'administration:dashboard' %}"
+                       class="btn btn-light">
+
+                        Cancel
+
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="bi bi-save me-2"></i>
+
+                        Save Branding
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

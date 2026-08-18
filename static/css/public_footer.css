@@ -1,0 +1,62 @@
+/*=========================================
+PUBLIC FOOTER
+=========================================*/
+
+.public-footer {
+
+    background: #212529;
+
+    color: #fff;
+
+    padding-top: 50px;
+
+    padding-bottom: 30px;
+
+}
+
+.public-footer h5,
+.public-footer h6 {
+
+    color: #fff;
+
+}
+
+.public-footer p {
+
+    color: #adb5bd;
+
+}
+
+.public-footer a {
+
+    color: #dee2e6;
+
+    transition: .3s;
+
+}
+
+.public-footer a:hover {
+
+    color: #0d6efd;
+
+}
+
+.public-footer li {
+
+    list-style: none;
+
+    margin-bottom: 8px;
+
+}
+
+.public-footer ul {
+
+    padding-left: 0;
+
+}
+
+.public-footer hr {
+
+    opacity: .15;
+
+}

@@ -1,0 +1,382 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Payment Details{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+
+                Payment Details
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                View complete payment information.
+
+            </p>
+
+        </div>
+
+        <div>
+
+            <a href="{% url 'finance:payment-list' %}"
+               class="btn btn-outline-secondary">
+
+                <i class="bi bi-arrow-left me-2"></i>
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <!-- Payment Summary -->
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+
+                        Payment Summary
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-borderless">
+
+                        <tr>
+
+                            <th width="35%">Payment ID</th>
+
+                            <td>{{ payment.payment_id }}</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Student ID</th>
+
+                            <td>{{ payment.member.index_number }}</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Member</th>
+
+                            <td>{{ payment.member.full_name }}</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Department</th>
+
+                            <td>{{ payment.member.department }}</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Level</th>
+
+                            <td>{{ payment.member.level }}</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Semester</th>
+
+                            <td>{{ payment.fee_structure.semester }}</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Amount Paid</th>
+
+                            <td>
+
+                                <span class="fw-bold text-success">
+
+                                    GH₵ {{ payment.amount_paid }}
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Payment Method</th>
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    {{ payment.payment_method }}
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Transaction Reference</th>
+
+                            <td>
+
+                                {{ payment.transaction_reference|default:"—" }}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Recorded By</th>
+
+                            <td>
+
+                                {{ payment.recorded_by }}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Date Recorded</th>
+
+                            <td>
+
+                                {{ payment.payment_date|date:"d M Y, H:i" }}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Remarks</th>
+
+                            <td>
+
+                                {{ payment.remarks|default:"No remarks." }}
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Fee Information Card -->
+
+<div class="card shadow-sm border-0 mt-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+            Fee Information
+        </h5>
+
+    </div>
+
+
+    <div class="card-body">
+
+
+        <table class="table table-borderless">
+
+
+            <tr>
+
+                <th width="35%">
+                    Academic Year
+                </th>
+
+                <td>
+                    {{ payment.fee_structure.semester.academic_year }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <th>
+                    Semester
+                </th>
+
+                <td>
+                    {{ payment.fee_structure.semester.get_semester_display }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <th>
+                    Required Fee
+                </th>
+
+                <td>
+
+                    GH₵ {{ payment.fee_structure.amount }}
+
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <th>
+                    Paid
+                </th>
+
+                <td>
+
+                    GH₵ {{ payment.amount_paid }}
+
+                </td>
+
+            </tr>
+
+
+
+           <tr>
+
+    <th>
+        Balance
+    </th>
+
+
+    <td>
+
+        {% if balance == 0 %}
+
+            <span class="badge bg-success fs-6">
+                Fully Paid
+            </span>
+
+        {% else %}
+
+            <span class="fw-bold text-danger">
+                GH₵ {{ balance|floatformat:2 }}
+            </span>
+
+        {% endif %}
+
+    </td>
+
+</tr>
+
+        </table>
+
+
+    </div>
+
+</div>
+
+
+        <!-- Receipt Card -->
+
+        <div class="col-lg-4">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+
+                        Receipt
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body text-center">
+
+                    {% if receipt %}
+
+                        <i class="bi bi-receipt display-3 text-success"></i>
+
+                        <h4 class="mt-3">
+
+                            {{ receipt.receipt_number }}
+
+                        </h4>
+
+                        <p class="text-muted">
+
+                            Generated
+
+                            {{ receipt.generated_at|date:"d M Y" }}
+
+                        </p>
+
+                        <a href="{% url 'finance:receipt-detail' receipt.pk %}"
+
+                           class="btn btn-primary w-100">
+
+                            <i class="bi bi-eye me-2"></i>
+
+                            View Receipt
+
+                        </a>
+
+                    {% else %}
+
+                        <i class="bi bi-exclamation-circle display-3 text-warning"></i>
+
+                        <p class="mt-3">
+
+                            No receipt available.
+
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,265 @@
+{% extends "admin_base.html" %}
+
+
+{% block title %}
+Notifications Settings
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<!-- Page Header -->
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+
+    <div>
+
+        <h2 class="fw-bold mb-1">
+
+            Notifications Settings
+
+        </h2>
+
+
+        <p class="text-muted mb-0">
+
+            Configure CampusPay system notification preferences.
+
+        </p>
+
+    </div>
+
+
+
+    <div>
+
+
+        <a href="{% url 'administration:dashboard' %}"
+           class="btn btn-outline-secondary">
+
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+
+            Back
+
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+
+<form method="post">
+
+
+{% csrf_token %}
+
+
+
+
+<h5 class="fw-bold mb-4">
+
+Notification Preferences
+
+</h5>
+
+
+
+
+<div class="row g-4">
+
+
+
+<div class="col-md-6">
+
+<div class="form-check">
+
+{{ form.payment_notifications }}
+
+<label class="form-check-label">
+
+Payment Notifications
+
+</label>
+
+<p class="text-muted small">
+
+Receive payment related alerts.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check">
+
+{{ form.receipt_notifications }}
+
+<label class="form-check-label">
+
+Receipt Notifications
+
+</label>
+
+<p class="text-muted small">
+
+Notify when receipts are generated.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check">
+
+{{ form.email_notifications }}
+
+<label class="form-check-label">
+
+Email Notifications
+
+</label>
+
+<p class="text-muted small">
+
+Enable system email messages.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check">
+
+{{ form.system_alerts }}
+
+<label class="form-check-label">
+
+System Alerts
+
+</label>
+
+<p class="text-muted small">
+
+Receive important system warnings.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check">
+
+{{ form.announcement_notifications }}
+
+<label class="form-check-label">
+
+Announcements
+
+</label>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check">
+
+{{ form.is_active }}
+
+<label class="form-check-label">
+
+Enable Notifications
+
+</label>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+
+<button class="btn btn-primary w-100 mt-4">
+
+
+Save Notification Settings
+
+
+<i class="bi bi-check-circle ms-2"></i>
+
+
+</button>
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

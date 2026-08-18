@@ -1,0 +1,634 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Finance Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                Finance Dashboard
+            </h2>
+
+            <p class="text-muted mb-0">
+                Manage payments, receipts and financial records.
+            </p>
+
+        </div>
+
+        <a href="{% url 'finance:payment-create' %}"
+           class="btn btn-primary">
+
+            <i class="bi bi-plus-circle me-2"></i>
+
+            Record Payment
+
+        </a>
+
+    </div>
+
+
+    <!-- Statistics Cards -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <small class="text-muted">
+                        Total Payments
+                    </small>
+
+                    <h2 class="fw-bold mt-2">
+                        {{ total_payments }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <small class="text-muted">
+                        Total Amount
+                    </small>
+
+                    <h2 class="fw-bold mt-2">
+
+                        GH₵ {{ total_amount }}
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <small class="text-muted">
+                        Receipts Issued
+                    </small>
+
+                    <h2 class="fw-bold mt-2">
+
+                        {{ receipt_count }}
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <small class="text-muted">
+                        Active Semester
+                    </small>
+
+                    <h6 class="fw-semibold mt-2">
+
+                        {% if active_semester %}
+
+                            {{ active_semester }}
+
+                        {% else %}
+
+                            No Active Semester
+
+                        {% endif %}
+
+                    </h6>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+
+
+<div class="row g-4 mb-4">
+
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+<small>
+Today's Collection
+</small>
+
+<h3 class="fw-bold">
+
+GH₵ {{ today_collection }}
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+<small>
+Cash Payments
+</small>
+
+<h3 class="fw-bold">
+
+{{ cash_payments }}
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+<small>
+Mobile Money
+</small>
+
+<h3 class="fw-bold">
+
+{{ momo_payments }}
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+<small>
+Bank Transfers
+</small>
+
+<h3 class="fw-bold">
+
+{{ bank_payments }}
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>    
+
+    <!-- Finance Management -->
+
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+            Finance Management
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row g-4">
+
+            <!-- Academic Years -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <a href="{% url 'finance:academic-year-list' %}"
+                   class="text-decoration-none">
+
+                    <div class="card h-100 border-primary">
+
+                        <div class="card-body">
+
+                            <h5 class="fw-bold">
+
+                                <i class="bi bi-calendar3 me-2"></i>
+
+                                Academic Years
+
+                            </h5>
+
+                            <p class="text-muted mb-3">
+
+                                Create and manage academic years.
+
+                            </p>
+
+                            <span class="btn btn-outline-primary btn-sm">
+
+                                Open
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <!-- Semesters -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <a href="{% url 'finance:semester-list' %}"
+                   class="text-decoration-none">
+
+                    <div class="card h-100 border-success">
+
+                        <div class="card-body">
+
+                            <h5 class="fw-bold">
+
+                                <i class="bi bi-book me-2"></i>
+
+                                Semesters
+
+                            </h5>
+
+                            <p class="text-muted mb-3">
+
+                                Manage active and previous semesters.
+
+                            </p>
+
+                            <span class="btn btn-outline-success btn-sm">
+
+                                Open
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <!-- Fee Structures -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <a href="{% url 'finance:fee-structure-list' %}"
+                   class="text-decoration-none">
+
+                    <div class="card h-100 border-warning">
+
+                        <div class="card-body">
+
+                            <h5 class="fw-bold">
+
+                                <i class="bi bi-cash-stack me-2"></i>
+
+                                Fee Structures
+
+                            </h5>
+
+                            <p class="text-muted mb-3">
+
+                                Configure fees for every department.
+
+                            </p>
+
+                            <span class="btn btn-outline-warning btn-sm">
+
+                                Open
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <!-- Payments -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <a href="{% url 'finance:payment-list' %}"
+                   class="text-decoration-none">
+
+                    <div class="card h-100 border-info">
+
+                        <div class="card-body">
+
+                            <h5 class="fw-bold">
+
+                                <i class="bi bi-wallet2 me-2"></i>
+
+                                Payments
+
+                            </h5>
+
+                            <p class="text-muted mb-3">
+
+                                View all recorded payments.
+
+                            </p>
+
+                            <span class="btn btn-outline-info btn-sm">
+
+                                Open
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <!-- Record Payment -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <a href="{% url 'finance:payment-create' %}"
+                   class="text-decoration-none">
+
+                    <div class="card h-100 border-primary">
+
+                        <div class="card-body">
+
+                            <h5 class="fw-bold">
+
+                                <i class="bi bi-plus-circle me-2"></i>
+
+                                Record Payment
+
+                            </h5>
+
+                            <p class="text-muted mb-3">
+
+                                Record a new member payment.
+
+                            </p>
+
+                            <span class="btn btn-primary btn-sm">
+
+                                New
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <!-- Receipts -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="card h-100 border-secondary">
+
+                    <div class="card-body">
+
+                        <h5 class="fw-bold">
+
+                            <i class="bi bi-receipt me-2"></i>
+
+                            Receipts
+
+                        </h5>
+
+                        <p class="text-muted mb-3">
+
+                            View and print payment receipts.
+
+                        </p>
+
+                        <a href="{% url 'finance:receipt-list' %}"
+
+                        class="btn btn-outline-secondary">
+
+                        <i class="bi bi-eye me-2"></i>
+
+                        View Receipts
+
+                    </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+    <!-- Recent Payments -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-white">
+
+            <h5 class="mb-0">
+
+                Recent Payments
+
+            </h5>
+
+        </div>
+
+        <div class="card-body p-0">
+
+            {% if recent_payments %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>Payment ID</th>
+
+                            <th>Member</th>
+
+                            <th>Amount</th>
+
+                            <th>Method</th>
+
+                            <th>Date</th>
+
+                            <th></th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for payment in recent_payments %}
+
+                        <tr>
+
+                            <td>
+
+                                {{ payment.payment_id }}
+
+                            </td>
+
+                            <td>
+
+                                {{ payment.member.full_name }}
+
+                            </td>
+
+                            <td>
+
+                                GH₵ {{ payment.amount_paid }}
+
+                            </td>
+
+                            <td>
+
+                                {{ payment.payment_method }}
+
+                            </td>
+
+                            <td>
+
+                                {{ payment.payment_date|date:"d M Y" }}
+
+                            </td>
+
+                            <td class="text-end">
+
+                                <a href="{% url 'finance:payment-detail' payment.pk %}"
+
+                                   class="btn btn-sm btn-outline-primary">
+
+                                    View
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <div class="text-center py-5">
+
+                <i class="bi bi-wallet2 display-4 text-secondary"></i>
+
+                <h5 class="mt-3">
+
+                    No Payments Recorded
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Start by recording your first payment.
+
+                </p>
+
+                <a href="{% url 'finance:payment-create' %}"
+
+                   class="btn btn-primary">
+
+                    Record First Payment
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

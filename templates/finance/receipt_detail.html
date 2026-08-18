@@ -1,0 +1,267 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+Receipt Details
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="container mt-5">
+
+
+<div class="row justify-content-center">
+
+
+<div class="col-lg-8">
+
+
+<div class="card shadow border-0">
+
+
+<div class="card-header bg-primary text-white text-center">
+
+    {% if receipt_settings.include_logo and branding.logo %}
+        <img src="{{ branding.logo.url }}"
+             style="height:70px"
+             class="mb-3">
+    {% endif %}
+
+    <h4 class="mb-0">
+
+        {{ system_settings.system_name }}
+
+    </h4>
+
+    <small>
+
+        Payment Receipt
+
+    </small>
+
+</div>
+
+
+
+<div class="card-body p-4">
+
+
+
+<div class="text-center mb-4">
+
+
+<h5 class="fw-bold">
+
+{{ receipt.receipt_number }}
+
+</h5>
+
+
+<p class="text-muted">
+
+Generated on
+
+{{ receipt.generated_at|date:"d M Y H:i" }}
+
+</p>
+
+
+</div>
+
+
+
+<hr>
+
+
+
+<div class="row">
+
+
+<div class="col-md-6 mb-3">
+
+<strong>Student:</strong>
+
+<br>
+
+{{ receipt.payment.member.full_name }}
+
+</div>
+
+
+
+<div class="col-md-6 mb-3">
+
+<strong>Student ID:</strong>
+
+<br>
+
+{{ receipt.payment.member.student_id }}
+
+</div>
+
+
+
+<div class="col-md-6 mb-3">
+
+<strong>Payment Type:</strong>
+
+<br>
+
+{{ receipt.payment.fee_structure }}
+
+</div>
+
+
+
+<div class="col-md-6 mb-3">
+
+<strong>Amount Paid:</strong>
+
+<br>
+
+GH₵ {{ receipt.payment.amount_paid }}
+
+</div>
+
+
+
+<div class="col-md-6 mb-3">
+
+<strong>Payment Method:</strong>
+
+<br>
+
+{{ receipt.payment.payment_method }}
+
+</div>
+
+
+
+<div class="col-md-6 mb-3">
+
+<strong>Transaction Date:</strong>
+
+<br>
+
+{{ receipt.payment.payment_date }}
+
+</div>
+
+
+
+</div>
+
+
+
+<hr>
+
+
+
+<div class="d-flex justify-content-center gap-3 mt-4">
+
+
+<button onclick="window.print()"
+
+class="btn btn-primary">
+
+<i class="bi bi-printer me-2"></i>
+
+Print Receipt
+
+</button>
+
+
+<hr>
+
+<div class="text-center mt-4">
+
+    <p class="mb-1">
+
+        {{ receipt_settings.footer_message }}
+
+    </p>
+
+</div>
+
+
+{% if receipt_settings.include_signature %}
+
+<div class="mt-5 text-end">
+
+    <hr style="width:220px; margin-left:auto;">
+
+    <strong>
+
+        {{ receipt_settings.signature_name }}
+
+    </strong>
+
+    <br>
+
+    <small>
+
+        {{ receipt_settings.signature_position }}
+
+    </small>
+
+</div>
+
+{% endif %}
+
+
+<div class="text-center text-muted small mt-4">
+
+    {% if receipt_settings.show_phone %}
+
+        {{ association.phone_number }}
+
+    {% endif %}
+
+    {% if receipt_settings.show_phone and receipt_settings.show_email %}
+
+        |
+
+    {% endif %}
+
+    {% if receipt_settings.show_email %}
+
+        {{ association.email }}
+
+    {% endif %}
+
+</div>
+
+
+
+<a href="{% url 'finance:receipt-pdf' receipt.pk %}"
+
+class="btn btn-success">
+
+<i class="bi bi-file-earmark-pdf me-2"></i>
+
+Download PDF
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

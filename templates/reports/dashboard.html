@@ -1,0 +1,148 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+Reports
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold">
+
+                Reports
+
+            </h2>
+
+            <p class="text-muted">
+
+                Generate financial and membership reports.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- Finance -->
+
+        <div class="col-lg-4">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>
+
+                        <i class="bi bi-cash-stack me-2"></i>
+
+                        Finance Reports
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        View payment collections and income.
+
+                    </p>
+
+                    <a href="{% url 'reports:finance-report' %}"
+
+                       class="btn btn-primary w-100">
+
+                        Open Report
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Members -->
+
+        <div class="col-lg-4">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>
+
+                        <i class="bi bi-people-fill me-2"></i>
+
+                        Member Reports
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        Generate membership reports.
+
+                    </p>
+
+                    <a href="{% url 'reports:member-report' %}"
+
+                       class="btn btn-success w-100">
+
+                        Open Report
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Outstanding -->
+
+        <div class="col-lg-4">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body">
+
+                    <h5>
+
+                        <i class="bi bi-exclamation-circle me-2"></i>
+
+                        Outstanding Fees
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        Students with unpaid balances.
+
+                    </p>
+
+                    <a href="{% url 'reports:outstanding-report' %}"
+
+                       class="btn btn-warning w-100">
+
+                        Open Report
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

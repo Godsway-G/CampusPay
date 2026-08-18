@@ -1,0 +1,166 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+Member Reports
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <h2 class="fw-bold mb-4">
+
+        Member Reports
+
+    </h2>
+
+   <div class="row g-4">
+
+    <!-- Member Directory -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <h5>
+
+                    <i class="bi bi-people-fill me-2"></i>
+
+                    Member Directory
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Complete alphabetical list of members.
+
+                </p>
+
+                <a href="{% url 'reports:member-directory' %}"
+                   class="btn btn-outline-primary">
+
+                    Open Report
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Department -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <h5>
+
+                    <i class="bi bi-building me-2"></i>
+
+                    Department Summary
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Members grouped by department.
+
+                </p>
+
+                <a href="{% url 'reports:department-summary' %}"
+                   class="btn btn-outline-success">
+
+                    Open Report
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Level -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <h5>
+
+                    <i class="bi bi-bar-chart-line me-2"></i>
+
+                    Level Summary
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Members grouped by academic level.
+
+                </p>
+
+                <a href="{% url 'reports:level-summary' %}"
+                   class="btn btn-outline-warning">
+
+                    Open Report
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Status -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <h5>
+
+                    <i class="bi bi-person-check me-2"></i>
+
+                    Active Members
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Active versus inactive members.
+
+                </p>
+
+                <a href="{% url 'reports:member-status' %}"
+                   class="btn btn-outline-dark">
+
+                    Open Report
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

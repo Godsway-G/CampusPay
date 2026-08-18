@@ -1,0 +1,73 @@
+body {
+    background: #9dbef7;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.auth-card {
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .08);
+    overflow: hidden;
+}
+
+.auth-header {
+    background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+    color: #ffffff;
+    padding: 35px;
+    text-align: center;
+}
+
+.auth-header h2 {
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.auth-header p {
+    margin: 0;
+    opacity: .9;
+}
+
+.form-floating {
+    margin-bottom: 18px;
+}
+
+.form-control {
+    height: 58px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #0d6efd;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+    z-index: 5;
+}
+
+.btn-login {
+    height: 55px;
+    font-weight: 600;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.forgot-link {
+    text-decoration: none;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}

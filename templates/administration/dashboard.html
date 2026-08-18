@@ -1,0 +1,1022 @@
+{% extends "admin_base.html" %}
+
+
+{% block title %}
+Administration Settings
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+    <!-- Header -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+
+                Administration Settings
+
+            </h2>
+
+
+            <p class="text-muted mb-0">
+
+                Configure and manage{{ system_settings.system_name }} system preferences.
+
+            </p>
+
+
+        </div>
+
+
+
+        <div>
+
+            <span class="badge bg-success-subtle text-success px-3 py-2">
+
+                <i class="bi bi-shield-check me-2"></i>
+
+                System Configuration
+
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- Settings Overview -->
+
+    <div class="row g-4 mb-5">
+
+
+
+
+
+        <!-- Association Information -->
+
+        <div class="col-xl-4 col-lg-6">
+
+
+            <div class="card shadow-sm border-0 h-100 settings-card">
+
+
+                <div class="card-body">
+
+
+                    <div class="rounded-circle bg-primary-subtle p-3 mb-3">
+
+                        <i class="bi bi-building fs-3 text-primary"></i>
+
+                    </div>
+
+
+
+                    <h5 class="fw-bold">
+
+                        Association Information
+
+                    </h5>
+
+
+
+                    <p class="text-muted small">
+
+                        Manage association profile,
+                        institution details and contact information.
+
+                    </p>
+
+                    {% include "components/configuration_status.html" with configured=association_configured %}
+
+                    <a href="{% url 'administration:association' %}"
+                       class="btn btn-outline-primary w-100">
+
+
+                        Manage Settings
+
+
+                        <i class="bi bi-arrow-right ms-2"></i>
+
+
+                    </a>
+
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+        <!-- Branding -->
+
+
+        <div class="col-xl-4 col-lg-6">
+
+
+            <div class="card shadow-sm border-0 h-100 settings-card">
+
+
+                <div class="card-body">
+
+
+                    <div class="rounded-circle bg-info-subtle p-3 mb-3">
+
+                        <i class="bi bi-palette fs-3 text-info"></i>
+
+                    </div>
+
+
+
+                    <h5 class="fw-bold">
+
+                        Branding
+
+                    </h5>
+
+
+
+                    <p class="text-muted small">
+
+                        Manage logos, colors, themes and system identity.
+
+                    </p>
+
+                    {% include "components/configuration_status.html" with configured=association_configured %}
+
+                    <a href="{% url 'administration:branding' %}"
+                       class="btn btn-outline-info w-100">
+
+
+                        Manage Branding
+
+
+                        <i class="bi bi-arrow-right ms-2"></i>
+
+
+                    </a>
+
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+        <!-- Academic Defaults -->
+
+
+        <div class="col-xl-4 col-lg-6">
+
+
+            <div class="card shadow-sm border-0 h-100 settings-card">
+
+
+                <div class="card-body">
+
+
+                    <div class="rounded-circle bg-warning-subtle p-3 mb-3">
+
+                        <i class="bi bi-calendar-event fs-3 text-warning"></i>
+
+                    </div>
+
+
+
+                    <h5 class="fw-bold">
+
+                        Academic Defaults
+
+                    </h5>
+
+
+
+                    <p class="text-muted small">
+
+                        Configure academic year,
+                        semester and default payment session.
+
+                    </p>
+
+                    {% include "components/configuration_status.html" with configured=association_configured %}
+
+                    <a href="{% url 'administration:academic-defaults' %}"
+                       class="btn btn-outline-warning w-100">
+
+
+                        Manage Academic Settings
+
+
+                        <i class="bi bi-arrow-right ms-2"></i>
+
+
+                    </a>
+
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+<!-- Payment Settings -->
+
+
+<div class="col-xl-4 col-lg-6">
+
+
+    <div class="card shadow-sm border-0 h-100 settings-card">
+
+
+        <div class="card-body">
+
+
+            <div class="rounded-circle bg-success-subtle p-3 mb-3">
+
+                <i class="bi bi-credit-card fs-3 text-success"></i>
+
+            </div>
+
+
+
+            <h5 class="fw-bold">
+
+                Payment Settings
+
+            </h5>
+
+
+
+            <p class="text-muted small">
+
+                Configure payment rules,
+                payment methods and transaction preferences.
+
+            </p>
+
+            {% include "components/configuration_status.html" with configured=association_configured %}
+
+
+            <a href="{% url 'administration:payment-settings' %}"
+               class="btn btn-outline-success w-100">
+
+
+                Open
+
+
+                <i class="bi bi-arrow-right ms-2"></i>
+
+
+            </a>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- Receipt Settings -->
+
+
+<div class="col-xl-4 col-lg-6">
+
+
+<div class="card shadow-sm border-0 h-100 settings-card">
+
+
+<div class="card-body">
+
+
+<div class="rounded-circle bg-danger-subtle p-3 mb-3">
+
+<i class="bi bi-receipt fs-3 text-danger"></i>
+
+</div>
+
+
+
+<h5 class="fw-bold">
+
+Receipt Settings
+
+</h5>
+
+
+
+<p class="text-muted small">
+
+Configure receipt numbering,
+formats and generated receipt information.
+
+</p>
+
+{% include "components/configuration_status.html" with configured=association_configured %}
+
+
+<a href="{% url 'administration:receipt-settings' %}"
+class="btn btn-outline-danger w-100">
+
+
+Open
+
+
+<i class="bi bi-arrow-right ms-2"></i>
+
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+<!-- Email Configuration -->
+
+
+<div class="col-xl-4 col-lg-6">
+
+
+<div class="card shadow-sm border-0 h-100 settings-card">
+
+
+<div class="card-body">
+
+
+<div class="rounded-circle bg-primary-subtle p-3 mb-3">
+
+<i class="bi bi-envelope fs-3 text-primary"></i>
+
+</div>
+
+
+
+<h5 class="fw-bold">
+
+Email Configuration
+
+</h5>
+
+
+
+<p class="text-muted small">
+
+Configure SMTP settings and system emails.
+
+</p>
+
+{% include "components/configuration_status.html" with configured=association_configured %}
+
+
+<a href="{% url 'administration:email-configuration' %}"
+class="btn btn-outline-primary w-100">
+
+
+Open
+
+
+<i class="bi bi-arrow-right ms-2"></i>
+
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- Email Templates -->
+
+<div class="col-xl-4 col-lg-6">
+
+    <div class="card shadow-sm border-0 h-100 settings-card">
+
+        <div class="card-body">
+
+            <div class="rounded-circle bg-info-subtle p-3 mb-3">
+
+                <i class="bi bi-file-earmark-text fs-3 text-info"></i>
+
+            </div>
+
+
+            <h5 class="fw-bold">
+
+                Email Templates
+
+            </h5>
+
+
+            <p class="text-muted small">
+
+                Create and manage reusable email templates
+                used throughout CampusPay.
+
+            </p>
+
+            <a href="{% url 'administration:email-template-list' %}"
+               class="btn btn-outline-info w-100">
+
+                Manage Templates
+
+                <i class="bi bi-arrow-right ms-2"></i>
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- User Management -->
+
+
+<div class="col-xl-4 col-lg-6">
+
+
+    <div class="card shadow-sm border-0 h-100 settings-card">
+
+
+        <div class="card-body">
+
+
+            <div class="rounded-circle bg-primary-subtle p-3 mb-3">
+
+
+                <i class="bi bi-people fs-3 text-primary"></i>
+
+
+            </div>
+
+
+
+            <h5 class="fw-bold">
+
+                User Management
+
+            </h5>
+
+
+
+            <p class="text-muted small">
+
+                Manage system users,
+                administrators and user accounts.
+
+            </p>
+
+            {% include "components/configuration_status.html" with configured=association_configured %}
+
+
+            <a href="{% url 'administration:user-management' %}"
+               class="btn btn-outline-primary w-100">
+
+
+                Open
+
+
+                <i class="bi bi-arrow-right ms-2"></i>
+
+
+            </a>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- Roles & Permissions -->
+
+
+<div class="col-xl-4 col-lg-6">
+
+
+<div class="card shadow-sm border-0 h-100 settings-card">
+
+
+<div class="card-body">
+
+
+<div class="rounded-circle bg-secondary-subtle p-3 mb-3">
+
+
+<i class="bi bi-shield-lock fs-3 text-secondary"></i>
+
+
+</div>
+
+
+
+<h5 class="fw-bold">
+
+Roles & Permissions
+
+</h5>
+
+
+
+<p class="text-muted small">
+
+Control administrator roles,
+access levels and system permissions.
+
+</p>
+
+{% include "components/configuration_status.html" with configured=association_configured %}
+
+
+<a href="{% url 'administration:roles-permissions' %}"
+   class="btn btn-outline-secondary w-100">
+
+
+Open
+
+
+<i class="bi bi-arrow-right ms-2"></i>
+
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- Notifications -->
+
+
+<div class="col-xl-4 col-lg-6">
+
+
+<div class="card shadow-sm border-0 h-100 settings-card">
+
+
+<div class="card-body">
+
+
+<div class="rounded-circle bg-warning-subtle p-3 mb-3">
+
+
+<i class="bi bi-bell fs-3 text-warning"></i>
+
+
+</div>
+
+
+
+<h5 class="fw-bold">
+
+Notifications
+
+</h5>
+
+
+
+<p class="text-muted small">
+
+Manage system alerts and notification preferences.
+
+</p>
+
+{% include "components/configuration_status.html" with configured=association_configured %}
+
+
+<a href="{% url 'administration:notifications' %}"
+class="btn btn-outline-warning w-100">
+
+
+Open
+
+
+<i class="bi bi-arrow-right ms-2"></i>
+
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<!-- Security -->
+
+
+<div class="col-xl-4 col-lg-6">
+
+
+<div class="card shadow-sm border-0 h-100 settings-card">
+
+
+<div class="card-body">
+
+
+<div class="rounded-circle bg-danger-subtle p-3 mb-3">
+
+
+<i class="bi bi-lock fs-3 text-danger"></i>
+
+
+</div>
+
+
+
+<h5 class="fw-bold">
+
+Security
+
+</h5>
+
+
+
+<p class="text-muted small">
+
+Configure password policies,
+security preferences and system protection.
+
+</p>
+
+{% include "components/configuration_status.html" with configured=association_configured %}
+
+
+<a href="{% url 'administration:security' %}"
+   class="btn btn-outline-danger w-100">
+
+
+Open
+
+
+<i class="bi bi-arrow-right ms-2"></i>
+
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- Backup & Restore -->
+
+
+<div class="col-xl-4 col-lg-6">
+
+
+<div class="card shadow-sm border-0 h-100 settings-card">
+
+
+<div class="card-body">
+
+
+<div class="rounded-circle bg-success-subtle p-3 mb-3">
+
+
+<i class="bi bi-database fs-3 text-success"></i>
+
+
+</div>
+
+
+
+<h5 class="fw-bold">
+
+Backup & Restore
+
+</h5>
+
+
+
+<p class="text-muted small">
+
+Manage database backup configuration and recovery options.
+
+</p>
+
+{% include "components/configuration_status.html" with configured=association_configured %}
+
+
+<a href="{% url 'administration:backup-restore' %}"
+class="btn btn-outline-success w-100">
+
+
+Open
+
+
+<i class="bi bi-arrow-right ms-2"></i>
+
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- Audit Logs -->
+
+<div class="col-xl-4 col-lg-6">
+
+    <div class="card shadow-sm border-0 h-100 settings-card">
+
+        <div class="card-body">
+
+            <div class="rounded-circle bg-info-subtle p-3 mb-3">
+
+                <i class="bi bi-clock-history fs-3 text-info"></i>
+
+            </div>
+
+            <h5 class="fw-bold">
+
+                Audit Logs
+
+            </h5>
+
+            <p class="text-muted small">
+
+                Track user logins, payments, settings changes and
+                important activities across CampusPay.
+
+            </p>
+
+            {% include "components/configuration_status.html" with configured=association_configured %}
+
+            <a href="{% url 'administration:audit-logs' %}"
+               class="btn btn-outline-info w-100">
+
+                Open
+
+                <i class="bi bi-arrow-right ms-2"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="col-xl-4 col-lg-6">
+
+    <div class="card shadow-sm border-0 h-100 settings-card">
+
+        <div class="card-body">
+
+            <div class="rounded-circle bg-dark-subtle p-3 mb-3">
+
+                <i class="bi bi-gear-wide-connected fs-3 text-dark"></i>
+
+            </div>
+
+            <h5 class="fw-bold">
+
+                General Configuration
+
+            </h5>
+
+            <p class="text-muted small">
+
+                Configure system-wide preferences, language,
+                timezone, maintenance mode and platform behaviour.
+
+            </p>
+
+             {% include "components/configuration_status.html" with configured=association_configured %}
+
+
+            <a href="{% url 'administration:general-configuration' %}"
+               class="btn btn-outline-dark w-100">
+
+                Open
+
+                <i class="bi bi-arrow-right ms-2"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+    <!-- Information Panel -->
+
+
+    <div class="card border-0 shadow-sm">
+
+
+        <div class="card-body">
+
+
+            <div class="row align-items-center">
+
+
+                <div class="col-md-8">
+
+
+                    <h5 class="fw-bold mb-2">
+
+                        {{ system_settings.system_name }} Configuration
+
+                    </h5>
+
+
+
+                    <p class="text-muted mb-0">
+
+                        Administration settings control the core
+                        behaviour, appearance and security of your
+                        payment management platform.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+
+
+                    <i class="bi bi-gear-wide-connected display-4 text-primary"></i>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+<style>
+
+.settings-card {
+
+    transition: all .2s ease;
+
+}
+
+
+.settings-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+
+}
+
+
+
+
+.bg-purple-subtle {
+
+    background-color: #eee6ff;
+
+}
+
+
+.text-purple {
+
+    color: #6f42c1;
+
+}
+
+
+.btn-outline-purple {
+
+    color: #6f42c1;
+    border-color: #6f42c1;
+
+}
+
+
+.btn-outline-purple:hover {
+
+    background-color: #6f42c1;
+    color: white;
+
+}
+
+</style>
+
+
+
+
+{% endblock %}
+
+
+

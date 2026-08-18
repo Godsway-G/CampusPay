@@ -1,0 +1,27 @@
+<form method="get" class="row g-3 mb-4">
+
+    <div class="col-md-6">
+
+        <input
+            type="text"
+            name="search"
+            value="{{ request.GET.search }}"
+            class="form-control"
+            placeholder="{{ placeholder|default:'Search...' }}"
+        >
+
+    </div>
+
+    <div class="col-auto">
+
+        <button class="btn btn-primary">
+
+            <i class="bi bi-search"></i>
+
+            Search
+
+        </button>
+
+    </div>
+
+</form>

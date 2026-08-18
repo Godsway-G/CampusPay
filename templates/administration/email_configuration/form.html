@@ -1,0 +1,265 @@
+{% extends "admin_base.html" %}
+
+
+
+{% block title %}
+
+Email Configuration
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="container-fluid">
+
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+
+    <div>
+
+        <h2 class="fw-bold mb-1">
+
+            Email Configuration
+
+        </h2>
+
+
+        <p class="text-muted mb-0">
+
+            Configure CampusPay email server and notification settings.
+
+        </p>
+
+
+    </div>
+
+
+
+    <div>
+
+        <a href="{% url 'administration:dashboard' %}"
+           class="btn btn-outline-secondary">
+
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back to Settings
+
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<div class="row">
+
+
+
+<div class="col-lg-8">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body p-4">
+
+
+
+<h5 class="fw-bold mb-4">
+
+SMTP Configuration
+
+</h5>
+
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+{% for field in form %}
+
+
+<div class="mb-3">
+
+
+<label class="form-label fw-semibold">
+
+{{ field.label }}
+
+</label>
+
+
+
+{{ field }}
+
+{% if field.name == "email_password" %}
+
+<small class="text-muted">
+Leave blank to keep the existing password.
+</small>
+
+{% endif %}
+
+
+
+{% for error in field.errors %}
+
+<div class="text-danger small">
+
+{{ error }}
+
+</div>
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+
+
+<div class="d-flex gap-2">
+
+
+<button type="submit"
+        class="btn btn-primary">
+
+<i class="bi bi-save me-2"></i>
+
+Save Configuration
+
+</button>
+
+
+
+<a href="{% url 'administration:test-email' %}"
+   class="btn btn-success">
+
+
+<i class="bi bi-send me-2"></i>
+
+Send Test Email
+
+
+</a>
+
+
+</div>
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-lg-4">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+
+<div class="rounded-circle bg-primary-subtle p-3 mb-3 d-inline-block">
+
+
+<i class="bi bi-envelope fs-3 text-primary"></i>
+
+
+</div>
+
+
+
+
+<h5 class="fw-bold">
+
+System Email
+
+</h5>
+
+
+
+<p class="text-muted small">
+
+Email configuration controls automated CampusPay messages such as:
+
+</p>
+
+
+
+
+<ul class="small text-muted">
+
+<li>Payment confirmations</li>
+
+<li>Receipt notifications</li>
+
+<li>Password reset emails</li>
+
+<li>System alerts</li>
+
+</ul>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+{% endblock %}

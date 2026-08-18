@@ -1,0 +1,640 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+
+    {% if object %}
+        Edit Email Template
+    {% else %}
+        Create Email Template
+    {% endif %}
+
+    | CampusPay
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1 class="h3 mb-1">
+
+                {% if object %}
+                    Edit Email Template
+                {% else %}
+                    Create Email Template
+                {% endif %}
+
+            </h1>
+
+            <p class="text-muted mb-0">
+
+                {% if object %}
+
+                    Update the reusable email template
+                    used by CampusPay.
+
+                {% else %}
+
+                    Create a reusable email template
+                    for CampusPay notifications.
+
+                {% endif %}
+
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'administration:email-template-list' %}"
+            class="btn btn-outline-secondary"
+        >
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back to Templates
+
+        </a>
+
+    </div>
+
+
+
+    <div class="row g-4">
+
+
+        <!-- =================================================
+             MAIN FORM
+        ================================================== -->
+
+        <div class="col-xl-8">
+
+
+            <div class="card border-0 shadow-sm">
+
+
+                <div class="card-body p-4">
+
+
+                    <form method="post">
+
+                        {% csrf_token %}
+
+
+                        <!-- =================================
+                             GENERAL INFORMATION
+                        ================================== -->
+
+                        <div class="mb-4">
+
+                            <h5 class="fw-semibold mb-1">
+                                Template Information
+                            </h5>
+
+                            <p class="text-muted small mb-0">
+
+                                Basic information used to identify
+                                this email template.
+
+                            </p>
+
+                        </div>
+
+
+                        <div class="row g-3">
+
+
+                            <!-- NAME -->
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="{{ form.name.id_for_label }}"
+                                    class="form-label fw-semibold"
+                                >
+                                    Template Name
+                                </label>
+
+                                {{ form.name }}
+
+                                {% if form.name.errors %}
+
+                                    <div class="text-danger small mt-1">
+
+                                        {% for error in form.name.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <!-- SLUG -->
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="{{ form.slug.id_for_label }}"
+                                    class="form-label fw-semibold"
+                                >
+                                    Template Slug
+                                </label>
+
+                                {{ form.slug }}
+
+                                {% if form.slug.errors %}
+
+                                    <div class="text-danger small mt-1">
+
+                                        {% for error in form.slug.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+
+                                    </div>
+
+                                {% endif %}
+
+                                <div class="form-text">
+
+                                    Example:
+                                    <code>payment_confirmation</code>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- DESCRIPTION -->
+
+                            <div class="col-12">
+
+                                <label
+                                    for="{{ form.description.id_for_label }}"
+                                    class="form-label fw-semibold"
+                                >
+                                    Description
+                                </label>
+
+                                {{ form.description }}
+
+                                {% if form.description.errors %}
+
+                                    <div class="text-danger small mt-1">
+
+                                        {% for error in form.description.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <!-- TEMPLATE TYPE -->
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="{{ form.template_type.id_for_label }}"
+                                    class="form-label fw-semibold"
+                                >
+                                    Template Type
+                                </label>
+
+                                {{ form.template_type }}
+
+                                {% if form.template_type.errors %}
+
+                                    <div class="text-danger small mt-1">
+
+                                        {% for error in form.template_type.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <!-- STATUS -->
+
+                            <div class="col-md-6">
+
+                                <label class="form-label fw-semibold">
+                                    Template Status
+                                </label>
+
+                                <div class="form-check form-switch mt-2">
+
+                                    {{ form.is_active }}
+
+                                    <label
+                                        class="form-check-label"
+                                        for="{{ form.is_active.id_for_label }}"
+                                    >
+                                        Template is active
+                                    </label>
+
+                                </div>
+
+                                <div class="form-text">
+
+                                    Inactive templates cannot be sent.
+
+                                </div>
+
+                                {% if form.is_active.errors %}
+
+                                    <div class="text-danger small mt-1">
+
+                                        {% for error in form.is_active.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+
+                        <hr class="my-4">
+
+
+
+                        <!-- =================================
+                             SUBJECT
+                        ================================== -->
+
+                        <div class="mb-4">
+
+                            <h5 class="fw-semibold mb-1">
+                                Email Subject
+                            </h5>
+
+                            <p class="text-muted small">
+                                Define the subject that recipients
+                                will see in their inbox.
+                            </p>
+
+                            {{ form.subject }}
+
+                            {% if form.subject.errors %}
+
+                                <div class="text-danger small mt-1">
+
+                                    {% for error in form.subject.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <!-- =================================
+                             PLAIN TEXT BODY
+                        ================================== -->
+
+                        <div class="mb-4">
+
+                            <h5 class="fw-semibold mb-1">
+                                Plain Text Content
+                            </h5>
+
+                            <p class="text-muted small">
+
+                                Fallback content for email clients
+                                that do not support HTML.
+
+                            </p>
+
+                            {{ form.body }}
+
+                            {% if form.body.errors %}
+
+                                <div class="text-danger small mt-1">
+
+                                    {% for error in form.body.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <!-- =================================
+                             HTML CONTENT
+                        ================================== -->
+
+                        <div class="mb-4">
+
+                            <h5 class="fw-semibold mb-1">
+                                HTML Email Content
+                            </h5>
+
+                            <p class="text-muted small">
+
+                                HTML version of the email.
+                                You can use the supported CampusPay
+                                template variables below.
+
+                            </p>
+
+
+
+                            <!-- SUPPORTED VARIABLES -->
+
+                            <div class="alert alert-light border">
+
+                                <div class="fw-semibold small mb-2">
+                                    Available variables
+                                </div>
+
+                                <div class="d-flex flex-wrap gap-2">
+
+                                    <code class="bg-white border rounded px-2 py-1">
+                                        {% templatetag openvariable %}name{% templatetag closevariable %}
+                                    </code>
+
+                                    <code class="bg-white border rounded px-2 py-1">
+                                        {% templatetag openvariable %}amount{% templatetag closevariable %}
+                                    </code>
+
+                                    <code class="bg-white border rounded px-2 py-1">
+                                        {% templatetag openvariable %}reference{% templatetag closevariable %}
+                                    </code>
+
+                                    <code class="bg-white border rounded px-2 py-1">
+                                        {% templatetag openvariable %}date{% templatetag closevariable %}
+                                    </code>
+
+                                    <code class="bg-white border rounded px-2 py-1">
+                                        {% templatetag openvariable %}recipient{% templatetag closevariable %}
+                                    </code>
+
+                                    <code class="bg-white border rounded px-2 py-1">
+                                        {% templatetag openvariable %}system_name{% templatetag closevariable %}
+                                    </code>
+
+                                </div>
+
+                            </div>
+
+
+
+                            {{ form.html_content }}
+
+
+                            {% if form.html_content.errors %}
+
+                                <div class="text-danger small mt-1">
+
+                                    {% for error in form.html_content.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+
+                                </div>
+
+                            {% endif %}
+
+                            <div class="form-text mt-2">
+
+                                Variables are replaced automatically when
+                                CampusPay sends the email.
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================
+                             FORM ACTIONS
+                        ================================== -->
+
+                        <div class="d-flex flex-wrap gap-2 pt-3 border-top">
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                            >
+
+                                <i class="bi bi-check2-circle me-2"></i>
+
+                                {% if object %}
+                                    Save Changes
+                                {% else %}
+                                    Create Template
+                                {% endif %}
+
+                            </button>
+
+
+
+                            {% if object %}
+
+                                <a
+                                    href="{% url 'administration:email-template-preview' object.pk %}"
+                                    class="btn btn-outline-secondary"
+                                >
+
+                                    <i class="bi bi-eye me-2"></i>
+
+                                    Preview
+
+                                </a>
+
+                            {% endif %}
+
+
+
+                            <a
+                                href="{% url 'administration:email-template-list' %}"
+                                class="btn btn-light border"
+                            >
+                                Cancel
+                            </a>
+
+
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             INFORMATION SIDEBAR
+        ================================================== -->
+
+        <div class="col-xl-4">
+
+
+            <!-- TEMPLATE GUIDE -->
+
+            <div class="card border-0 shadow-sm mb-4">
+
+                <div class="card-body p-4">
+
+
+                    <div class="d-flex align-items-center mb-3">
+
+                        <div
+                            class="rounded-circle bg-primary-subtle
+                                   d-flex align-items-center
+                                   justify-content-center
+                                   me-3"
+                            style="width: 44px; height: 44px;"
+                        >
+
+                            <i class="bi bi-info-circle fs-5 text-primary"></i>
+
+                        </div>
+
+
+                        <h5 class="fw-semibold mb-0">
+                            Template Guide
+                        </h5>
+
+                    </div>
+
+
+                    <p class="text-muted small">
+
+                        Email templates allow CampusPay to reuse
+                        professionally formatted messages throughout
+                        the system.
+
+                    </p>
+
+
+                    <ul class="small text-muted mb-0">
+
+                        <li class="mb-2">
+                            Give every template a unique slug.
+                        </li>
+
+                        <li class="mb-2">
+                            Keep the subject short and meaningful.
+                        </li>
+
+                        <li class="mb-2">
+                            Provide plain-text fallback content.
+                        </li>
+
+                        <li class="mb-2">
+                            Use HTML for professional formatting.
+                        </li>
+
+                        <li>
+                            Deactivate templates that should not be sent.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- VARIABLES -->
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4">
+
+                    <h6 class="fw-semibold mb-3">
+                        Template Variables
+                    </h6>
+
+
+                    <p class="text-muted small">
+
+                        These variables can be inserted into the
+                        subject, plain-text body, and HTML content.
+
+                    </p>
+
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <code class="bg-light border rounded px-2 py-1">
+                            {% templatetag openvariable %}name{% templatetag closevariable %}
+                        </code>
+
+                        <code class="bg-light border rounded px-2 py-1">
+                            {% templatetag openvariable %}amount{% templatetag closevariable %}
+                        </code>
+
+                        <code class="bg-light border rounded px-2 py-1">
+                            {% templatetag openvariable %}reference{% templatetag closevariable %}
+                        </code>
+
+                        <code class="bg-light border rounded px-2 py-1">
+                            {% templatetag openvariable %}date{% templatetag closevariable %}
+                        </code>
+
+                        <code class="bg-light border rounded px-2 py-1">
+                            {% templatetag openvariable %}recipient{% templatetag closevariable %}
+                        </code>
+
+                        <code class="bg-light border rounded px-2 py-1">
+                            {% templatetag openvariable %}system_name{% templatetag closevariable %}
+                        </code>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

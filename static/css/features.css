@@ -1,0 +1,154 @@
+/*=========================================
+FEATURES SECTION
+=========================================*/
+
+.features-section {
+
+    padding: 100px 0;
+
+    background: #f8fbff;
+
+}
+
+
+/*=========================================
+SECTION HEADER
+=========================================*/
+
+.features-section .section-title {
+
+    font-size: 2.2rem;
+
+    font-weight: 700;
+
+    color: var(--text);
+
+    margin-bottom: 15px;
+
+}
+
+.features-section .section-text {
+
+    max-width: 700px;
+
+    margin: auto;
+
+    color: var(--muted);
+
+    line-height: 1.8;
+
+    margin-bottom: 60px;
+
+}
+
+
+
+/*=========================================
+FEATURE CARD
+=========================================*/
+
+.feature-card {
+
+    background: #ffffff;
+
+    border-radius: 22px;
+
+    padding: 40px 28px;
+
+    text-align: center;
+
+    height: 100%;
+
+    border: 1px solid rgba(13, 110, 253, .08);
+
+    box-shadow: 0 15px 40px rgba(15, 23, 42, .06);
+
+    transition: .35s ease;
+
+}
+
+.feature-card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow: 0 20px 45px rgba(15, 23, 42, .10);
+
+}
+
+
+
+/*=========================================
+ICON
+=========================================*/
+
+.feature-icon {
+
+    width: 86px;
+
+    height: 86px;
+
+    margin: auto;
+
+    margin-bottom: 24px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 22px;
+
+    background: linear-gradient(135deg,
+            var(--primary),
+            #4f9cff);
+
+}
+
+.feature-icon i {
+
+    font-size: 2rem;
+
+    color: white;
+
+}
+
+
+
+/*=========================================
+TEXT
+=========================================*/
+
+.feature-card h4 {
+
+    color: var(--text);
+
+    margin-bottom: 15px;
+
+    font-weight: 700;
+
+}
+
+.feature-card p {
+
+    margin: 0;
+
+    color: var(--muted);
+
+    line-height: 1.75;
+
+}
+
+
+
+/*=========================================
+HOVER EFFECT
+=========================================*/
+
+.feature-card:hover .feature-icon {
+
+    transform: scale(1.08);
+
+    transition: .35s;
+
+}

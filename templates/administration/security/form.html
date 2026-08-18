@@ -1,0 +1,411 @@
+{% extends "admin_base.html" %}
+
+
+{% block title %}
+Security Settings
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+
+<!-- Header -->
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+
+    <div>
+
+
+        <h2 class="fw-bold mb-1">
+
+            Security Settings
+
+        </h2>
+
+
+        <p class="text-muted mb-0">
+
+            Configure CampusPay security policies and protection settings.
+
+        </p>
+
+
+    </div>
+
+
+
+
+    <div>
+
+
+        <a href="{% url 'administration:dashboard' %}"
+           class="btn btn-outline-secondary">
+
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back 
+
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Security Form -->
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+
+<form method="post">
+
+
+{% csrf_token %}
+
+
+
+<h5 class="fw-bold mb-4">
+
+Security Configuration
+
+</h5>
+
+
+
+
+
+<div class="row g-4">
+
+
+
+
+
+
+<!-- Password Expiry -->
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Minimum Password Length
+
+</label>
+
+
+{{ form.minimum_password_length }}
+
+
+<small class="text-muted">
+
+Number of days before users must change passwords.
+
+</small>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Login Attempts -->
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Maximum Login Attempts
+
+</label>
+
+
+{{ form.max_login_attempts }}
+
+
+<small class="text-muted">
+
+Maximum failed attempts before restriction.
+
+</small>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Session Timeout -->
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Session Timeout (Minutes)
+
+</label>
+
+
+{{ form.session_timeout_minutes }}
+
+
+<small class="text-muted">
+
+Automatic logout after inactivity.
+
+</small>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<hr class="my-4">
+
+
+
+
+
+
+
+<h5 class="fw-bold mb-3">
+
+Security Controls
+
+</h5>
+
+
+
+
+
+
+
+<div class="row g-4">
+
+
+
+
+
+<div class="col-md-6">
+
+
+<div class="form-check form-switch">
+
+
+{{ form.require_uppercase }}
+
+
+<label class="form-check-label">
+
+Require Uppercase Characters
+
+</label>
+
+
+<p class="text-muted small">
+
+Force users to use secure passwords.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<div class="form-check form-switch">
+
+
+{{ form.enable_login_attempt_limit }}
+
+
+<label class="form-check-label">
+
+Enable Login Attempt Limit
+
+</label>
+
+
+<p class="text-muted small">
+
+Protect accounts against repeated failed login attempts.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<div class="form-check form-switch">
+
+
+{{ form.enable_two_factor }}
+
+
+<label class="form-check-label">
+
+Enable Two Factor Authentication
+
+</label>
+
+
+<p class="text-muted small">
+
+Add additional account verification security.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<div class="form-check form-switch">
+
+
+{{ form.is_active }}
+
+
+<label class="form-check-label">
+
+Enable Security Module
+
+</label>
+
+
+<p class="text-muted small">
+
+Activate CampusPay security configurations.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<button class="btn btn-danger w-100 mt-4">
+
+
+Save Security Settings
+
+
+<i class="bi bi-shield-check ms-2"></i>
+
+
+</button>
+
+
+
+
+
+</form>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+{% endblock %}

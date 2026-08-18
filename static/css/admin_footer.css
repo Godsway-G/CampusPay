@@ -1,0 +1,82 @@
+/*=========================================
+ADMIN FOOTER
+=========================================*/
+
+.admin-footer {
+
+    background: linear-gradient(135deg,
+            #ecf0f4,
+            #aab5df);
+
+    border-top: 1px solid rgba(255, 255, 255, .08);
+
+    padding: 18px 28px;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 -8px 25px rgba(0, 0, 0, .12);
+
+}
+
+
+
+/*=========================================
+FOOTER TEXT
+=========================================*/
+
+.admin-footer small {
+
+    font-size: .85rem;
+
+    color: hsl(220, 14%, 96%);
+
+    font-weight: 500;
+
+    letter-spacing: .2px;
+
+}
+
+
+
+/*=========================================
+SECONDARY TEXT
+=========================================*/
+
+.admin-footer small:last-child {
+
+    color: #d6bfa8;
+
+}
+
+
+
+/*=========================================
+HOVER EFFECT
+=========================================*/
+
+.admin-footer small:hover {
+
+    color: #ffffff;
+
+}
+
+
+
+/*=========================================
+RESPONSIVE
+=========================================*/
+
+@media(max-width:768px) {
+
+    .admin-footer .d-flex {
+
+        flex-direction: column;
+
+        gap: 8px;
+
+        text-align: center;
+
+    }
+
+}

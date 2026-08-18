@@ -1,0 +1,92 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+
+<h3 class="mb-4">
+Department Summary Report
+</h3>
+
+
+<div class="card shadow-sm">
+
+<div class="card-body">
+
+
+<table class="table table-striped">
+
+
+<thead>
+
+<tr>
+
+<th>#</th>
+<th>Department</th>
+<th>Total Members</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+{% for department in departments %}
+
+
+<tr>
+
+<td>
+{{ forloop.counter }}
+</td>
+
+
+<td>
+{{ department.name }}
+</td>
+
+
+<td>
+{{ department.total_members }}
+</td>
+
+
+</tr>
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="3"
+class="text-center">
+
+No departments found
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

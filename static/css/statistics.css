@@ -1,0 +1,155 @@
+/*=========================================
+STATISTICS SECTION
+=========================================*/
+
+
+.statistics-section {
+
+    padding: 90px 0;
+
+    background: transparent;
+
+}
+
+
+
+/*=========================================
+STAT CARD
+=========================================*/
+
+
+.statistics-section .stat-card {
+
+
+    background: rgba(255, 255, 255, .95);
+
+    border-radius: var(--radius);
+
+    padding: 35px 25px;
+
+    text-align: center;
+
+    border: 1px solid rgba(13, 110, 253, .08);
+
+    box-shadow: 0 15px 40px rgba(15, 23, 42, .06);
+
+    transition: .35s ease;
+
+
+}
+
+
+
+.statistics-section .stat-card:hover {
+
+
+    transform: translateY(-8px);
+
+    box-shadow: 0 25px 50px rgba(15, 23, 42, .12);
+
+
+}
+
+
+
+/*=========================================
+NUMBER
+=========================================*/
+
+
+.statistics-section h2 {
+
+    font-size: 2.5rem;
+
+    font-weight: 800;
+
+    color: var(--text);
+
+    margin-bottom: 12px;
+
+}
+
+
+
+/*=========================================
+TEXT
+=========================================*/
+
+
+.statistics-section p {
+
+
+    margin: 0;
+
+    font-size: .95rem;
+
+    color: var(--muted);
+
+    font-weight: 600;
+
+
+}
+
+
+
+/*=========================================
+COLOR VARIATIONS
+=========================================*/
+
+
+.statistics-section .text-primary {
+
+
+    color: var(--primary) !important;
+
+
+}
+
+
+
+.statistics-section .text-success {
+
+
+    color: var(--success) !important;
+
+
+}
+
+
+
+.statistics-section .text-warning {
+
+
+    color: var(--warning) !important;
+
+
+}
+
+
+
+.statistics-section .text-danger {
+
+
+    color: var(--danger) !important;
+
+
+}
+
+
+
+/*=========================================
+MOBILE
+=========================================*/
+
+
+@media(max-width:768px) {
+
+
+    .statistics-section h2 {
+
+        font-size: 2rem;
+
+    }
+
+
+}

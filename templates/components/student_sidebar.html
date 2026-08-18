@@ -1,0 +1,112 @@
+<div class="sidebar">
+
+
+<div class="sidebar-header">
+
+
+<h4>
+
+<i class="bi bi-wallet2"></i>
+
+CampusPay
+
+</h4>
+
+
+<small>
+Student Portal
+</small>
+
+
+</div>
+
+
+
+<hr class="sidebar-divider">
+
+
+
+<nav class="nav flex-column">
+
+
+<a class="nav-link"
+href="{% url 'portal:dashboard' %}">
+
+<i class="bi bi-speedometer2"></i>
+
+Dashboard
+
+</a>
+
+
+
+<a class="nav-link" href="#">
+
+<i class="bi bi-person"></i>
+
+My Profile
+
+</a>
+
+
+
+<a class="nav-link" href="#">
+
+<i class="bi bi-credit-card"></i>
+
+My Payments
+
+</a>
+
+
+
+<a class="nav-link" href="#">
+
+<i class="bi bi-receipt"></i>
+
+Receipts
+
+</a>
+
+
+
+<a class="nav-link" href="#">
+
+<i class="bi bi-cash-stack"></i>
+
+Outstanding Fees
+
+</a>
+
+
+
+<a class="nav-link"
+href="{% url 'portal:change_password' %}">
+
+<i class="bi bi-key"></i>
+
+Change Password
+
+</a>
+
+
+
+
+<form method="POST" action="{% url 'accounts:logout' %}">
+    {% csrf_token %}
+
+    <button type="submit" class="nav-link logout-btn">
+
+        <i class="bi bi-box-arrow-right"></i>
+
+        Logout
+
+    </button>
+
+</form>
+
+
+</nav>
+
+
+</div>

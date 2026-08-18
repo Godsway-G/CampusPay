@@ -1,0 +1,203 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+General Configuration
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Header -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+
+                General Configuration
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Configure global CampusPay system preferences and platform behaviour.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-white">
+
+            <h5 class="mb-0">
+
+                System Configuration
+
+            </h5>
+
+        </div>
+
+
+        <div class="card-body">
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            System Name
+
+                        </label>
+
+                        {{ form.system_name }}
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            System Version
+
+                        </label>
+
+                        {{ form.system_version }}
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            Timezone
+
+                        </label>
+
+                        {{ form.timezone }}
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            Language
+
+                        </label>
+
+                        {{ form.language }}
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            Date Format
+
+                        </label>
+
+                        {{ form.date_format }}
+
+                    </div>
+
+
+                    <div class="col-md-6 d-flex align-items-center">
+
+                        <div class="form-check mt-4">
+
+                            {{ form.maintenance_mode }}
+
+                            <label class="form-check-label">
+
+                                Enable Maintenance Mode
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+
+                            Maintenance Message
+
+                        </label>
+
+                        {{ form.maintenance_message }}
+
+                    </div>
+
+
+                    <div class="col-12">
+
+                        <div class="form-check">
+
+                            {{ form.allow_debug_information }}
+
+                            <label class="form-check-label">
+
+                                Allow Debug Information
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <hr class="my-4">
+
+
+                <div class="d-flex justify-content-between">
+
+                    <a href="{% url 'administration:dashboard' %}"
+                       class="btn btn-outline-secondary">
+
+                        <i class="bi bi-arrow-left me-2"></i>
+
+                        Back
+
+                    </a>
+
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="bi bi-check-circle me-2"></i>
+
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

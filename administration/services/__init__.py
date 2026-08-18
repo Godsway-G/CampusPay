@@ -1,0 +1,1 @@
+from .academic_defaults import AcademicConfigurationService

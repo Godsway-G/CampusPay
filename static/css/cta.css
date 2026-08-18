@@ -1,0 +1,248 @@
+/*=========================================
+CALL TO ACTION SECTION
+=========================================*/
+
+
+.cta-section {
+
+    padding: 100px 0;
+
+    background: linear-gradient(135deg,
+            #0d6efd,
+            #2563eb);
+
+    color: rgba(250, 242, 242, 0.703);
+
+}
+
+
+.cta-section h2 {
+
+    color: rgba(22, 15, 15, 0.783);
+
+}
+
+
+.cta-section p {
+
+    color: rgba(255, 255, 255, .9);
+
+}
+
+
+
+/*=========================================
+DECORATION EFFECT
+=========================================*/
+
+
+.cta-section::before {
+
+
+    content: "";
+
+    position: absolute;
+
+    width: 400px;
+
+    height: 400px;
+
+    background: rgba(255, 255, 255, .08);
+
+    border-radius: 50%;
+
+    top: -150px;
+
+    right: -120px;
+
+
+}
+
+
+
+.cta-section::after {
+
+
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+
+    height: 350px;
+
+    background: rgba(255, 255, 255, .06);
+
+    border-radius: 50%;
+
+    bottom: -150px;
+
+    left: -120px;
+
+
+}
+
+
+
+/*=========================================
+CTA CARD
+=========================================*/
+
+
+.cta-card {
+
+
+    position: relative;
+
+    z-index: 2;
+
+
+    background: rgba(255, 255, 255, .12);
+
+
+    border-radius: 30px;
+
+
+    padding: 70px 45px;
+
+
+    text-align: center;
+
+
+    border: 1px solid rgba(255, 255, 255, .20);
+
+
+    -webkit-backdrop-filter: blur(12px);
+
+    backdrop-filter: blur(12px);
+
+
+}
+
+
+
+/*=========================================
+TEXT
+=========================================*/
+
+
+.cta-card h2 {
+
+
+    color: #ffffff;
+
+
+    font-size: 2.3rem;
+
+
+    font-weight: 800;
+
+
+    margin-bottom: 20px;
+
+
+}
+
+
+
+.cta-card p {
+
+
+    .cta-card p {
+
+        color: #eaf2ff;
+
+    }
+
+
+    max-width: 650px;
+
+
+    margin: auto;
+
+
+    line-height: 1.8;
+
+
+}
+
+
+
+/*=========================================
+BUTTON
+=========================================*/
+
+
+.cta-card .btn {
+
+
+    margin-top: 25px;
+
+
+    padding: 14px 38px;
+
+
+    border-radius: 50px;
+
+
+    font-weight: 700;
+
+
+    transition: .3s ease;
+
+
+}
+
+
+
+.cta-card .btn:hover {
+
+
+    transform: translateY(-4px);
+
+
+    box-shadow: 0 15px 30px rgba(0, 0, 0, .15);
+
+
+}
+
+
+
+/*=========================================
+RESPONSIVE
+=========================================*/
+
+
+@media(max-width:768px) {
+
+
+    .cta-section {
+
+
+        padding: 80px 0;
+
+
+    }
+
+
+
+    .cta-card {
+
+
+        padding: 45px 25px;
+
+
+    }
+
+
+
+    .cta-card h2 {
+
+
+        font-size: 1.8rem;
+
+
+    }
+
+
+}

@@ -1,0 +1,302 @@
+{% extends "admin_base.html" %}
+{% load static %}
+
+{% block title %}Record Payment{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                Record Payment
+            </h2>
+
+            <p class="text-muted mb-0">
+                Record a new association dues payment for a member.
+            </p>
+
+        </div>
+
+        <a href="{% url 'finance:payment-list' %}"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back to Payments
+
+        </a>
+
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+                        Payment Information
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form method="post" novalidate>
+
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+
+                        {% endif %}
+
+                        <!-- Member & Fee Structure -->
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Member
+                                </label>
+
+                                {{ form.member }}
+
+                                {% if form.member.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.member.errors }}
+                                    </div>
+                                {% endif %}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Fee Structure
+                                </label>
+
+                                {{ form.fee_structure }}
+
+                                {% if form.fee_structure.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.fee_structure.errors }}
+                                    </div>
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                        <!-- Payment Summary -->
+
+                        <div class="card shadow-sm mb-4">
+
+                            <div class="card-body">
+
+                                <h5 class="fw-bold mb-3">
+                                    Payment Summary
+                                </h5>
+
+                                <div class="row text-center">
+
+                                    <!-- Total Fee -->
+
+                                    <div class="col-lg col-md-4 mb-3">
+
+                                        <small class="text-muted">
+                                            Total Fee
+                                        </small>
+
+                                        <h4 id="total-fee">
+                                            GH₵0.00
+                                        </h4>
+
+                                    </div>
+
+                                    <!-- Already Paid -->
+
+                                    <div class="col-lg col-md-4 mb-3">
+
+                                        <small class="text-muted">
+                                            Already Paid
+                                        </small>
+
+                                        <h4 id="total-paid">
+                                            GH₵0.00
+                                        </h4>
+
+                                    </div>
+
+                                    <!-- Outstanding -->
+
+                                    <div class="col-lg col-md-4 mb-3">
+
+                                        <small class="text-muted">
+                                            Outstanding
+                                        </small>
+
+                                        <h4 id="outstanding">
+                                            GH₵0.00
+                                        </h4>
+
+                                    </div>
+
+                                    <!-- Remaining After Payment -->
+
+                                    <div class="col-lg col-md-4 mb-3">
+
+                                        <small class="text-muted">
+                                            Remaining After Payment
+                                        </small>
+
+                                        <h4 id="remaining-after-payment">
+                                            GH₵0.00
+                                        </h4>
+
+                                    </div>
+
+                                    <!-- Payment Status -->
+
+                                    <div class="col-lg col-md-4 mb-3">
+
+                                        <small class="text-muted">
+                                            Status
+                                        </small>
+
+                                        <h4 id="payment-status">
+                                            -
+                                        </h4>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                                                <!-- Payment Details -->
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Amount Paid
+                                </label>
+
+                                {{ form.amount_paid }}
+
+                                {% if form.amount_paid.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.amount_paid.errors }}
+                                    </div>
+                                {% endif %}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Payment Method
+                                </label>
+
+                                {{ form.payment_method }}
+
+                                {% if form.payment_method.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.payment_method.errors }}
+                                    </div>
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                        <!-- Transaction Reference -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Transaction Reference
+                            </label>
+
+                            {{ form.transaction_reference }}
+
+                            {% if form.transaction_reference.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.transaction_reference.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                        <!-- Remarks -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Remarks
+                            </label>
+
+                            {{ form.remarks }}
+
+                            {% if form.remarks.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.remarks.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                        <hr>
+
+                        <!-- Action Buttons -->
+
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <a href="{% url 'finance:payment-list' %}"
+                               class="btn btn-outline-secondary">
+
+                                Cancel
+
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="bi bi-check-circle me-2"></i>
+
+                                Save Payment
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{% static 'js/finance/payments.js' %}"></script>
+
+{% endblock %}

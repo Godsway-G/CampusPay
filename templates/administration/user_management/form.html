@@ -1,0 +1,425 @@
+{% extends "admin_base.html" %}
+
+
+{% block title %}
+User Management Settings
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+    <!-- Header -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+
+                User Management
+
+            </h2>
+
+
+            <p class="text-muted mb-0">
+
+                Configure user access, registration and account preferences.
+
+            </p>
+
+
+        </div>
+
+
+
+        <div>
+
+
+            <a href="{% url 'administration:dashboard' %}"
+               class="btn btn-outline-secondary">
+
+
+                <i class="bi bi-arrow-left me-2"></i>
+
+                Back to Settings
+
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- Settings Form -->
+
+
+    <div class="row">
+
+
+        <div class="col-lg-8">
+
+
+            <div class="card shadow-sm border-0">
+
+
+                <div class="card-header bg-white">
+
+
+                    <h5 class="fw-bold mb-0">
+
+                        User Management Configuration
+
+                    </h5>
+
+
+                </div>
+
+
+
+                <div class="card-body">
+
+
+
+                    <form method="post">
+
+
+                        {% csrf_token %}
+
+
+
+
+
+                        <!-- Registration -->
+
+
+                        <div class="mb-4">
+
+
+                            <div class="form-check form-switch">
+
+
+                                {{ form.allow_registration }}
+
+
+                                <label class="form-check-label fw-semibold">
+
+
+                                    Allow User Registration
+
+
+                                </label>
+
+
+                            </div>
+
+
+                            <small class="text-muted">
+
+
+                                Allow new users to register accounts.
+
+                            </small>
+
+
+                        </div>
+
+
+
+
+
+
+
+                        <!-- Email Verification -->
+
+
+                        <div class="mb-4">
+
+
+                            <div class="form-check form-switch">
+
+
+                                {{ form.require_email_verification }}
+
+
+                                <label class="form-check-label fw-semibold">
+
+
+                                    Require Email Verification
+
+
+                                </label>
+
+
+                            </div>
+
+
+                            <small class="text-muted">
+
+
+                                Users must verify their email before accessing the system.
+
+
+                            </small>
+
+
+                        </div>
+
+
+
+
+
+
+
+                        <!-- Login Attempts -->
+
+
+                        <div class="mb-4">
+
+
+                            <label class="form-label fw-semibold">
+
+
+                                Maximum Login Attempts
+
+
+                            </label>
+
+
+                            {{ form.max_login_attempts }}
+
+
+
+                            <small class="text-muted">
+
+
+                                Number of failed attempts allowed before restriction.
+
+
+                            </small>
+
+
+                        </div>
+
+
+
+
+
+
+
+                        <!-- Session Timeout -->
+
+
+                        <div class="mb-4">
+
+
+                            <label class="form-label fw-semibold">
+
+
+                                Session Timeout (Minutes)
+
+
+                            </label>
+
+
+                            {{ form.session_timeout }}
+
+
+
+                            <small class="text-muted">
+
+
+                                Automatically logout inactive users.
+
+
+                            </small>
+
+
+                        </div>
+
+
+
+
+
+
+
+                        <!-- Profile Update -->
+
+
+                        <div class="mb-4">
+
+
+                            <div class="form-check form-switch">
+
+
+                                {{ form.allow_profile_update }}
+
+
+
+                                <label class="form-check-label fw-semibold">
+
+
+                                    Allow Profile Updates
+
+
+                                </label>
+
+
+                            </div>
+
+
+                            <small class="text-muted">
+
+
+                                Allow users to update their profile information.
+
+
+                            </small>
+
+
+                        </div>
+
+
+
+
+
+
+
+
+                        <hr>
+
+
+
+
+
+
+                        <div class="d-flex justify-content-end gap-2">
+
+
+
+                            <a href="{% url 'administration:dashboard' %}"
+                               class="btn btn-light">
+
+
+                                Cancel
+
+
+                            </a>
+
+
+
+
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+
+                                <i class="bi bi-save me-2"></i>
+
+
+                                Save Settings
+
+
+                            </button>
+
+
+
+                        </div>
+
+
+
+
+                    </form>
+
+
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- Information Card -->
+
+
+        <div class="col-lg-4">
+
+
+            <div class="card shadow-sm border-0">
+
+
+                <div class="card-body">
+
+
+                    <div class="rounded-circle bg-primary-subtle p-3 mb-3 d-inline-block">
+
+
+                        <i class="bi bi-people fs-3 text-primary"></i>
+
+
+                    </div>
+
+
+
+                    <h5 class="fw-bold">
+
+
+                        About User Management
+
+
+                    </h5>
+
+
+
+                    <p class="text-muted small">
+
+
+                        Control how users interact with CampusPay.
+                        Manage registration rules, security preferences
+                        and account behaviour.
+
+
+                    </p>
+
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+{% endblock %}

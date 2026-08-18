@@ -1,0 +1,37 @@
+.table th {
+
+    font-weight: 600;
+
+}
+
+.table td {
+
+    vertical-align: middle;
+
+}
+
+.table tbody tr {
+
+    transition: .2s;
+
+}
+
+.table tbody tr:hover {
+
+    background: #f8fbff;
+
+}
+
+.badge {
+
+    padding: 8px 12px;
+
+    border-radius: 20px;
+
+}
+
+.btn-sm {
+
+    margin: 0 2px;
+
+}

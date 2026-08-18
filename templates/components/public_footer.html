@@ -1,0 +1,186 @@
+<footer class="public-footer bg-dark text-light mt-2 pt-4 pb-5">
+    <div class="container">
+
+        <div class="row gy-4">
+
+            <!-- Brand -->
+
+            <div class="col-lg-4">
+
+                <h5 class="fw-bold text-white">
+
+                    <i class="bi bi-bank2"></i>
+
+                    {{ system_settings.system_name }}
+
+                </h5>
+
+                <p class="small text-light mb-0">
+
+                    Your Secure Choice To Pay.
+
+                </p>
+
+                <p class="small text-secondary mt-2">
+
+                    A modern university association payment management platform
+                    built to simplify student dues, receipts, reporting and
+                    financial accountability.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- Quick Links -->
+
+            <div class="col-lg-3">
+
+                <h6 class="fw-bold">
+
+                    Quick Links
+
+                </h6>
+
+                <ul class="list-unstyled small">
+
+                    <li>
+
+                        <a href="{% url 'home' %}"
+                           class="text-decoration-none text-light">
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="#features"
+                           class="text-decoration-none text-light">
+
+                            Features
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="{% url 'portal:login' %}"
+                           class="text-decoration-none text-light">
+
+                            Student Portal
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="{% url 'accounts:login' %}"
+                           class="text-decoration-none text-light">
+
+                            admin Login
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- Contact -->
+
+            <div class="col-lg-3">
+
+                <h6 class="fw-bold">
+
+                    Contact
+
+                </h6>
+
+                <p class="small mb-2">
+
+                    <i class="bi bi-envelope"></i>
+
+                    support@campuspay.com
+
+                </p>
+
+                <p class="small mb-2">
+
+                    <i class="bi bi-telephone"></i>
+
+                    +233 XX XXX XXXX
+
+                </p>
+
+                <p class="small">
+
+                    <i class="bi bi-geo-alt"></i>
+
+                    Ho Technical University
+
+                    Ho, Ghana
+
+                </p>
+
+            </div>
+
+
+
+            <!-- Version -->
+
+            <div class="col-lg-2">
+
+                <h6 class="fw-bold">
+
+                    System
+
+                </h6>
+
+                <p class="small mb-1">
+
+                    Version 1.0
+
+                </p>
+
+                <p class="small text-secondary">
+
+                    {{ system_settings.system_name }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <hr class="border-secondary my-3">
+
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small">
+
+            <div class="text-secondary">
+
+                © {% now "Y" %} CampusPay.
+
+                All Rights Reserved.
+
+            </div>
+
+            <div class="text-secondary">
+
+                Designed & Developed by CampusPay Engineering Team
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>

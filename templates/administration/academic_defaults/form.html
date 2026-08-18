@@ -1,0 +1,368 @@
+{% extends "admin_base.html" %}
+
+
+
+{% block title %}
+Academic Defaults
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+
+<div class="container-fluid">
+
+
+
+    <!-- Header -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+
+        <div>
+
+
+            <h2 class="fw-bold mb-1">
+
+                Academic Defaults
+
+            </h2>
+
+
+
+            <p class="text-muted mb-0">
+
+                Configure the default academic session used across CampusPay.
+
+            </p>
+
+
+        </div>
+
+
+
+
+        <div>
+
+
+            <a href="{% url 'administration:dashboard' %}"
+               class="btn btn-outline-secondary">
+
+
+                <i class="bi bi-arrow-left me-2"></i>
+
+
+                Back
+
+
+            </a>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+{% if form.instance.academic_year and form.instance.semester %}
+
+<div class="alert alert-success border-0 shadow-sm">
+
+    <i class="bi bi-check-circle-fill me-2"></i>
+
+    Current Default Session:
+
+    <strong>
+
+        {{ form.instance.semester }}
+    </strong>
+
+</div>
+
+
+{% else %}
+
+
+<div class="alert alert-warning border-0 shadow-sm">
+
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+    Academic defaults have not been configured yet.
+
+</div>
+
+
+{% endif %}
+
+
+
+    <!-- Form Card -->
+
+
+    <div class="card shadow-sm border-0">
+
+
+
+        <div class="card-header bg-white">
+
+
+            <h5 class="fw-bold mb-0">
+
+                Academic Configuration
+
+            </h5>
+
+
+        </div>
+
+
+
+
+        <div class="card-body">
+
+
+
+            <form method="post">
+
+
+                {% csrf_token %}
+
+                {% if form.errors %}
+
+<div class="alert alert-danger">
+
+    <strong>
+        Please correct the following errors:
+    </strong>
+
+    {{ form.errors }}
+
+</div>
+
+{% endif %}
+
+
+
+                <div class="row g-4">
+
+
+
+
+
+                    <!-- Academic Year -->
+
+
+                    <div class="col-md-6">
+
+
+                        <label class="form-label fw-semibold">
+
+                            Academic Year
+
+                        </label>
+
+
+                        {{ form.academic_year }}
+
+
+
+                        <small class="text-muted">
+
+                            Select the default academic year.
+
+                        </small>
+
+
+                    </div>
+
+
+
+
+
+
+
+                    <!-- Semester -->
+
+
+                    <div class="col-md-6">
+
+
+                        <label class="form-label fw-semibold">
+
+                            Semester
+
+                        </label>
+
+
+                        {{ form.semester }}
+
+
+
+                        <small class="text-muted">
+
+                            Select the default semester.
+
+                        </small>
+
+
+                    </div>
+
+
+
+
+
+
+
+                    <!-- Auto Select -->
+
+
+                    <div class="col-md-6">
+
+
+                        <div class="form-check form-switch mt-4">
+
+
+                            {{ form.auto_select_active }}
+
+
+
+                            <label class="form-check-label fw-semibold">
+
+                                Automatically use active semester
+
+                            </label>
+
+
+
+                        </div>
+
+
+                        <small class="text-muted">
+
+                            CampusPay will automatically select the active semester.
+
+                        </small>
+
+
+                    </div>
+
+
+
+
+
+
+
+                    <!-- Payment Restriction -->
+
+
+                    <div class="col-md-6">
+
+
+                        <div class="form-check form-switch mt-4">
+
+
+                            {{ form.allow_payment_without_defaults }}
+
+
+
+                            <label class="form-check-label fw-semibold">
+
+                                Allow payments without defaults
+
+                            </label>
+
+<small class="text-danger">
+
+    Warning: Enabling this may allow payments without an assigned academic session.
+
+</small>
+
+                        </div>
+
+
+                        <small class="text-muted">
+
+                            Enable only if payments should continue without academic setup.
+
+                        </small>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+
+
+                <hr class="my-4">
+
+
+
+
+
+
+                <div class="d-flex justify-content-end gap-2">
+
+
+                    <a href="{% url 'administration:dashboard' %}"
+                       class="btn btn-light">
+
+
+                        Cancel
+
+
+                    </a>
+
+
+
+
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+
+                        <i class="bi bi-save me-2"></i>
+
+
+                        Save Academic Settings
+
+
+                    </button>
+
+
+
+                </div>
+
+
+
+
+
+            </form>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+{% endblock %}

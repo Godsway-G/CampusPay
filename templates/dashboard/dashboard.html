@@ -1,0 +1,248 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="mb-5">
+
+        <h2 class="fw-bold mb-2">
+            Dashboard
+        </h2>
+
+        <p class="text-muted mb-0">
+            Welcome to {{ system_settings.system_name }}.
+            Your secure system for managing association payments.
+        </p>
+
+    </div>
+
+
+    <!-- Statistics Cards -->
+
+    <div class="row g-4 mb-5">
+
+        <!-- Total Members -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card h-100">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <small>Total Members</small>
+
+                        <h2 class="mt-2 mb-0">
+                            {{ total_members }}
+                        </h2>
+
+                    </div>
+
+                    <i class="bi bi-people-fill stat-icon"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Total Payments -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card h-100">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <small>Total Payments</small>
+
+                        <h2 class="mt-2 mb-0">
+                            GH₵{{ total_payments|floatformat:2 }}
+                        </h2>
+
+                    </div>
+
+                    <i class="bi bi-wallet2 stat-icon"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Outstanding Balance -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card h-100">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <small>Outstanding Balance</small>
+
+                        <h2 class="mt-2 mb-0">
+                            GH₵{{ outstanding_balance|floatformat:2 }}
+                        </h2>
+
+                    </div>
+
+                    <i class="bi bi-cash-stack stat-icon"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Receipts -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card h-100">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <small>Receipts Issued</small>
+
+                        <h2 class="mt-2 mb-0">
+                          {{ total_receipts }}
+                        </h2>
+
+                    </div>
+
+                    <i class="bi bi-receipt stat-icon"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Recent Activity -->
+
+    <div class="card border-0 shadow-sm rounded-4">
+
+        <div class="card-header bg-white border-bottom py-3">
+
+            <h5 class="fw-semibold mb-0">
+
+                <i class="bi bi-clock-history me-2 text-primary"></i>
+
+                Recent Activity
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if recent_activities %}
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead class="table-light">
+
+                            <tr>
+
+                                <th>Date</th>
+
+                                <th>Member</th>
+
+                                <th>Amount</th>
+
+                                <th>Method</th>
+
+                                <th>Recorded By</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for payment in recent_activities %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ payment.payment_date|date:"d M Y H:i" }}
+                                    </td>
+
+                                    <td>
+                                     {{ payment.member }}
+                                    </td>
+
+                                    <td class="fw-bold text-success">
+                                        GH₵{{ payment.amount_paid|floatformat:2 }}
+                                    </td>
+
+                                    <td>
+
+                                        <span class="badge bg-primary">
+                                            {{ payment.payment_method }}
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        {{ payment.recorded_by }}
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="text-center py-5">
+
+                    <i class="bi bi-clock-history display-4 text-primary opacity-50"></i>
+
+                    <h5 class="mt-4 fw-semibold">
+
+                        No Recent Activity
+
+                    </h5>
+
+                    <p class="text-muted mb-0">
+
+                        Payments, receipts and member activities will appear here once transactions begin.
+
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

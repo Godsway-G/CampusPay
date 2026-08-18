@@ -1,0 +1,145 @@
+/* ===========================
+   CAMPUSPAY FOOTER
+=========================== */
+
+
+.cp-footer {
+
+    padding: 70px 0 25px;
+
+    background: linear-gradient(135deg,
+            #0B1F52,
+            #1847B8);
+
+    color: white;
+
+}
+
+
+
+/* headings */
+
+.cp-footer h5 {
+
+    margin-bottom: 18px;
+
+    font-size: 1rem;
+
+    font-weight: 700;
+
+    color: white;
+
+}
+
+
+
+/* paragraph */
+
+.cp-footer p {
+
+    font-size: .9rem;
+
+    color: #dbeafe;
+
+    line-height: 1.7;
+
+}
+
+
+
+/* lists */
+
+.cp-footer ul {
+
+    padding: 0;
+
+    list-style: none;
+
+}
+
+
+
+.cp-footer li {
+
+    margin: 10px 0;
+
+    color: #dbeafe;
+
+    font-size: .9rem;
+
+    transition: .3s ease;
+
+}
+
+
+
+.cp-footer li:hover {
+
+    color: white;
+
+    transform: translateX(4px);
+
+}
+
+
+
+/* links */
+
+.cp-footer a {
+
+    color: #dbeafe;
+
+}
+
+
+
+.cp-footer a:hover {
+
+    color: white;
+
+}
+
+
+
+/* social */
+
+.social-icons i {
+
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    width: 48px;
+
+    height: 48px;
+
+
+    background: rgba(255, 255, 255, .12);
+
+
+    border-radius: 50%;
+
+
+    color: white;
+
+
+    transition: .3s ease;
+
+}
+
+
+
+.social-icons i:hover {
+
+
+    background: white;
+
+
+    color: var(--primary);
+
+
+}

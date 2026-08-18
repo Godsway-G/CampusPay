@@ -1,0 +1,87 @@
+/*=========================================
+PRIMARY BUTTON
+=========================================*/
+
+.btn-primary-custom {
+
+    background: var(--primary);
+
+    color: #fff;
+
+    border: none;
+
+    padding: 13px 28px;
+
+    border-radius: 14px;
+
+    font-weight: 600;
+
+}
+
+.btn-primary-custom:hover {
+
+    background: var(--primary-dark);
+
+    color: #fff;
+
+}
+
+
+/*=========================================
+OUTLINE BUTTON
+=========================================*/
+
+.btn-outline-custom {
+
+    border: 2px solid var(--primary);
+
+    color: var(--primary);
+
+    padding: 13px 28px;
+
+    border-radius: 14px;
+
+    font-weight: 600;
+
+    background: #fff;
+
+}
+
+.btn-outline-custom:hover {
+
+    background: var(--primary);
+
+    color: #fff;
+
+}
+
+
+/*=========================================
+STUDENT PORTAL
+=========================================*/
+
+.btn-student-portal {
+
+    background: var(--success);
+
+    color: #fff;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 13px 28px;
+
+    font-weight: 600;
+
+}
+
+.btn-student-portal:hover {
+
+    background: #157347;
+
+    color: #fff;
+
+    box-shadow: 0 12px 24px rgba(25, 135, 84, .25);
+
+}

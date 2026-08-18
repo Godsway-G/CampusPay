@@ -1,0 +1,128 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+Review Password Reset
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h4 class="mb-0">
+                        Password Reset Review
+                    </h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-bordered align-middle">
+
+                        <tr>
+                            <th width="220">Student</th>
+                            <td>{{ request_item.member.full_name }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Student ID</th>
+                            <td>{{ request_item.member.student_id }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ request_item.member.email }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Reason</th>
+                            <td>{{ request_item.reason }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Requested On</th>
+                            <td>{{ request_item.requested_at|date:"d M Y H:i" }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Status</th>
+
+                            <td>
+
+                                {% if request_item.status == "Pending" %}
+
+                                    <span class="badge bg-warning text-dark">
+                                        Pending
+                                    </span>
+
+                                {% elif request_item.status == "Approved" %}
+
+                                    <span class="badge bg-success">
+                                        Approved
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-danger">
+                                        Rejected
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                    <div class="d-flex gap-2 mt-4">
+
+                        {% if request_item.status == "Pending" %}
+
+                        <a href="{% url 'portal:approve-reset' request_item.pk %}"
+                           class="btn btn-success">
+
+                            <i class="bi bi-check-circle"></i>
+
+                            Approve Request
+
+                        </a>
+
+                        <a href="{% url 'portal:reject-reset' request_item.pk %}"
+                           class="btn btn-danger">
+
+                            <i class="bi bi-x-circle"></i>
+
+                            Reject Request
+
+                        </a>
+
+                        {% endif %}
+
+                        <a href="{% url 'portal:reset-request-list' %}"
+                           class="btn btn-secondary ms-auto">
+
+                            Back
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

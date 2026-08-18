@@ -1,0 +1,273 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+    Send Test Email | CampusPay
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1 class="h3 mb-1">
+                Send Test Email
+            </h1>
+
+            <p class="text-muted mb-0">
+                Test this email template before using it in CampusPay.
+            </p>
+
+        </div>
+
+        <a
+            href="{% url 'administration:email-template-list' %}"
+            class="btn btn-outline-secondary"
+        >
+            <i class="bi bi-arrow-left me-2"></i>
+            Back to Templates
+        </a>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-xl-8 col-lg-10">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4">
+
+                    <!-- =================================================
+                         TEMPLATE INFORMATION
+                    ================================================== -->
+
+                    <div class="d-flex align-items-start mb-4">
+
+                        <div class="rounded-circle bg-primary-subtle p-3 me-3">
+
+                            <i class="bi bi-envelope-paper fs-4 text-primary"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h5 class="fw-semibold mb-1">
+                                {{ template.name }}
+                            </h5>
+
+                            <p class="text-muted mb-0">
+                                {{ template.description|default:"No description provided." }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <!-- =================================================
+                         TEMPLATE DETAILS
+                    ================================================== -->
+
+                    <div class="row g-3 mb-4">
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted d-block">
+                                Template Slug
+                            </small>
+
+                            <span class="fw-semibold">
+                                {{ template.slug }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted d-block">
+                                Template Type
+                            </small>
+
+                            <span class="fw-semibold">
+                                {{ template.get_template_type_display }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         STATUS
+                    ================================================== -->
+
+                    {% if template.is_active %}
+
+                        <div class="alert alert-success d-flex align-items-center">
+
+                            <i class="bi bi-check-circle-fill me-2"></i>
+
+                            <div>
+                                <strong>Template is active.</strong>
+                                You can send a test email using this template.
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="alert alert-warning d-flex align-items-center">
+
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+                            <div>
+                                <strong>Template is inactive.</strong>
+                                Inactive templates cannot be sent.
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- =================================================
+                         TEST EMAIL FORM
+                    ================================================== -->
+
+                    {% if template.is_active %}
+
+                        <form method="post">
+
+                            {% csrf_token %}
+
+
+                            <div class="mb-4">
+
+                                <label
+                                    for="{{ form.recipient.id_for_label }}"
+                                    class="form-label fw-semibold"
+                                >
+                                    Recipient Email
+                                </label>
+
+                                {{ form.recipient }}
+
+                                {% if form.recipient.errors %}
+
+                                    <div class="text-danger small mt-2">
+
+                                        {% for error in form.recipient.errors %}
+
+                                            <div>
+                                                <i class="bi bi-exclamation-circle me-1"></i>
+                                                {{ error }}
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                {% endif %}
+
+                                <div class="form-text">
+
+                                    Enter the email address that should receive
+                                    the test message.
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Information -->
+
+                            <div class="alert alert-info">
+
+                                <i class="bi bi-info-circle me-2"></i>
+
+                                This will send a real email through the
+                                configured Brevo service.
+
+                            </div>
+
+
+                            <!-- Actions -->
+
+                            <div class="d-flex flex-wrap gap-2">
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-success"
+                                >
+
+                                    <i class="bi bi-send me-2"></i>
+                                    Send Test Email
+
+                                </button>
+
+
+                                <a
+                                    href="{% url 'administration:email-template-preview' template.pk %}"
+                                    class="btn btn-outline-secondary"
+                                >
+
+                                    <i class="bi bi-eye me-2"></i>
+                                    Preview Template
+
+                                </a>
+
+
+                                <a
+                                    href="{% url 'administration:email-template-list' %}"
+                                    class="btn btn-light border"
+                                >
+
+                                    Cancel
+
+                                </a>
+
+                            </div>
+
+                        </form>
+
+                    {% else %}
+
+                        <div class="d-flex gap-2">
+
+                            <a
+                                href="{% url 'administration:email-template-list' %}"
+                                class="btn btn-outline-secondary"
+                            >
+
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Back to Templates
+
+                            </a>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+{% include "components/table/search.html" %}
+
+{% if members %}
+
+<div class="table-responsive">
+
+<table class="table table-hover align-middle">
+
+<thead class="table-light">
+
+<tr>
+
+<th>Photo</th>
+
+<th>Membership ID</th>
+
+<th>Name</th>
+
+<th>Department</th>
+
+<th>Level</th>
+
+<th>Status</th>
+
+<th class="text-end">
+
+Actions
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% block table_rows %}
+
+{% endblock %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% include "components/table/pagination.html" %}
+
+{% else %}
+
+{% include "components/table/empty.html" %}
+
+{% endif %}
+
+</div>
+
+</div>

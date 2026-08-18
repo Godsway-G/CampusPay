@@ -1,0 +1,634 @@
+{% extends "admin_base.html" %}
+
+{% block title %}
+Outstanding Fees Report
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                Outstanding Fees Report
+            </h2>
+
+            <p class="text-muted mb-0">
+                Monitor student dues, outstanding balances and payment status.
+            </p>
+
+        </div>
+
+        <div class="d-flex gap-2">
+
+            <button
+                onclick="window.print()"
+                class="btn btn-outline-dark">
+
+                <i class="bi bi-printer me-2"></i>
+
+                Print
+
+            </button>
+
+            <a href="{% url 'reports:outstanding-pdf' %}?search={{ request.GET.search }}&department={{ request.GET.department }}&level={{ request.GET.level }}&status={{ request.GET.status }}"
+            class="btn btn-danger">
+
+            <i class="bi bi-file-earmark-pdf me-2"></i>
+
+            PDF
+
+        </a>
+
+
+
+        <a href="{% url 'reports:outstanding-excel' %}?search={{ request.GET.search }}&department={{ request.GET.department }}&level={{ request.GET.level }}&status={{ request.GET.status }}"
+    class="btn btn-success">
+
+    <i class="bi bi-file-earmark-excel me-2"></i>
+
+    Excel
+
+</a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Search & Filters -->
+
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-body">
+
+            <form method="get">
+
+                <div class="row g-3">
+
+                    <!-- Search -->
+
+                    <div class="col-lg-4">
+
+                        <label class="form-label">
+
+                            Search
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="search"
+                            class="form-control"
+                            placeholder="Student ID, Name or Email"
+                            value="{{ request.GET.search }}">
+
+                    </div>
+
+                    <!-- Department -->
+
+                    <div class="col-lg-2">
+
+                        <label class="form-label">
+
+                            Department
+
+                        </label>
+
+                        <select
+                            name="department"
+                            class="form-select">
+
+                            <option value="">
+
+                                All Departments
+
+                            </option>
+
+                            {% for dept in departments %}
+
+                            <option
+                                value="{{ dept.id }}">
+
+                                {{ dept.name }}
+
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <!-- Level -->
+
+                    <div class="col-lg-2">
+
+                        <label class="form-label">
+
+                            Level
+
+                        </label>
+
+                        <select
+                            name="level"
+                            class="form-select">
+
+                            <option value="">
+
+                                All Levels
+
+                            </option>
+
+                            {% for code,name in levels %}
+
+                            <option value="{{ code }}">
+
+                                {{ name }}
+
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <!-- Status -->
+
+                    <div class="col-lg-2">
+
+                        <label class="form-label">
+
+                            Status
+
+                        </label>
+
+                        <select
+                            name="status"
+                            class="form-select">
+
+                            <option value="">
+
+                                All Status
+
+                            </option>
+
+                            <option value="Paid">
+
+                                Paid
+
+                            </option>
+
+                            <option value="Partial">
+
+                                Partial
+
+                            </option>
+
+                            <option value="Outstanding">
+
+                                Outstanding
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Search Button -->
+
+                    <div class="col-lg-2 d-flex align-items-end">
+
+                        <button
+                            class="btn btn-primary w-100">
+
+                            <i class="bi bi-search me-2"></i>
+
+                            Search
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Summary Cards -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-lg-3">
+
+            <div class="card shadow-sm border-start border-4 border-primary">
+
+                <div class="card-body">
+
+                    <small class="text-muted">
+
+                        Total Expected
+
+                    </small>
+
+                    <h3 class="fw-bold">
+
+                        GH₵ {{ total_expected }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="card shadow-sm border-start border-4 border-success">
+
+                <div class="card-body">
+
+                    <small class="text-muted">
+
+                        Total Paid
+
+                    </small>
+
+                    <h3 class="fw-bold text-success">
+
+                        GH₵ {{ total_paid }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="card shadow-sm border-start border-4 border-danger">
+
+                <div class="card-body">
+
+                    <small class="text-muted">
+
+                        Outstanding
+
+                    </small>
+
+                    <h3 class="fw-bold text-danger">
+
+                        GH₵ {{ total_outstanding }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+    <div class="card shadow-sm border-start border-4 border-warning">
+
+        <div class="card-body">
+
+            <small class="text-muted">
+                Students
+            </small>
+
+            <h3 class="fw-bold">
+                {{ report|length }}
+            </h3>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div> 
+
+
+
+<!-- Charts -->
+
+<div class="row g-4 mb-4">
+
+    <!-- Payment Status -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm border-0 h-100">
+
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Payment Status</h5>
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="statusChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Department Collection -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm border-0 h-100">
+
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Department Collection</h5>
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="departmentChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+    <!-- Report Table -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-white">
+
+            <h5 class="mb-0">
+
+                Outstanding Fee Details
+
+            </h5>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Student ID</th>
+
+                        <th>Student</th>
+
+                        <th>Department</th>
+
+                        <th>Level</th>
+
+                        <th class="text-end">Expected</th>
+
+                        <th class="text-end">Paid</th>
+
+                        <th class="text-end">Balance</th>
+
+                        <th class="text-center">Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for item in report %}
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+
+                                {{ item.member.student_id }}
+
+                            </strong>
+
+                        </td>
+
+                        <td>
+
+                            {{ item.member.full_name }}
+
+                            <br>
+
+                            <small class="text-muted">
+
+                                {{ item.member.email }}
+
+                            </small>
+
+                        </td>
+
+                        <td>
+
+                            {{ item.member.department }}
+
+                        </td>
+
+                        <td>
+
+                            {{ item.member.level }}
+
+                        </td>
+
+                        <td class="text-end">
+
+                            GH₵ {{ item.expected }}
+
+                        </td>
+
+                        <td class="text-end">
+
+                            GH₵ {{ item.paid }}
+
+                        </td>
+
+                        <td class="text-end fw-bold">
+
+                            GH₵ {{ item.balance }}
+
+                        </td>
+
+                        <td class="text-center">
+
+                            {% if item.status == "Paid" %}
+
+                                <span class="badge bg-success">
+
+                                    Paid
+
+                                </span>
+
+                            {% elif item.status == "Partial" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Partial
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+
+                                    Outstanding
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="8" class="text-center py-5">
+
+                            <i class="bi bi-inbox display-5 text-muted"></i>
+
+                            <p class="mt-3 text-muted">
+
+                                No outstanding fee records found.
+
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+
+const statusChart =
+document.getElementById(
+    "statusChart"
+);
+
+
+new Chart(
+statusChart,
+{
+
+type:"pie",
+
+data:{
+
+labels:[
+"Paid",
+"Partial",
+"Outstanding"
+],
+
+
+datasets:[{
+
+data:[
+
+{{ paid_count }},
+
+{{ partial_count }},
+
+{{ outstanding_count }}
+
+]
+
+}]
+
+}
+
+
+}
+
+);
+
+
+
+
+
+const departmentChart =
+document.getElementById(
+    "departmentChart"
+);
+
+
+
+new Chart(
+
+departmentChart,
+
+{
+
+type:"bar",
+
+data:{
+
+
+labels:
+
+{{ department_names|safe }},
+
+
+datasets:[{
+
+label:
+"Amount Collected",
+
+
+data:
+
+{{ department_totals|safe }}
+
+}]
+
+
+}
+
+
+}
+
+);
+
+
+
+</script>
+{% endblock %}

@@ -1,0 +1,234 @@
+{% extends "admin_base.html" %}
+
+
+{% block title %}
+Roles & Permissions
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<div class="mb-4">
+
+
+<h2 class="fw-bold">
+
+Roles & Permissions
+
+</h2>
+
+
+<p class="text-muted">
+
+Manage CampusPay administrator roles and system access control.
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+
+<form method="post">
+
+
+{% csrf_token %}
+
+
+
+<div class="mb-4">
+
+
+<label class="form-label fw-semibold">
+
+Role
+
+</label>
+
+
+{{ form.role_name }}
+
+
+</div>
+
+
+
+
+
+<h5 class="fw-bold mb-3">
+
+Permissions
+
+</h5>
+
+
+
+
+<div class="row g-3">
+
+
+<div class="col-md-6">
+
+<div class="form-check">
+
+{{ form.can_manage_users }}
+
+<label class="form-check-label">
+
+Manage Users
+
+</label>
+
+</div>
+
+</div>
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check">
+
+{{ form.can_manage_finance }}
+
+<label class="form-check-label">
+
+Manage Finance
+
+</label>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check">
+
+{{ form.can_manage_members }}
+
+<label class="form-check-label">
+
+Manage Members
+
+</label>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check">
+
+{{ form.can_manage_reports }}
+
+<label class="form-check-label">
+
+View Reports
+
+</label>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check">
+
+{{ form.can_access_settings }}
+
+<label class="form-check-label">
+
+Access Settings
+
+</label>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+<div class="form-check">
+
+{{ form.is_active }}
+
+<label class="form-check-label">
+
+Active Role
+
+</label>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<button class="btn btn-primary mt-4 w-100">
+
+
+Save Permissions
+
+
+<i class="bi bi-check-circle ms-2"></i>
+
+
+</button>
+
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+{% endblock %}

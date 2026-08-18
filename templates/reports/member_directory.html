@@ -1,0 +1,125 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h3>Member Directory Report</h3>
+            <p class="text-muted">
+                Complete list of registered members
+            </p>
+        </div>
+
+        <button onclick="window.print()" 
+                class="btn btn-primary">
+            Print Report
+        </button>
+
+    </div>
+
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+
+            <table class="table table-hover">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Level</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for member in members %}
+
+                    <tr>
+
+                        <td>{{ forloop.counter }}</td>
+
+                        <td>
+                            {{ member.student_id }}
+                        </td>
+
+                        <td>
+                            {{ member.first_name }}
+                            {{ member.last_name }}
+                        </td>
+
+                        <td>
+                            {{ member.department }}
+                        </td>
+
+                        <td>
+                            {{ member.level }}
+                        </td>
+
+                        <td>
+                            {{ member.email }}
+                        </td>
+
+
+                        <td>
+
+                            {% if member.active %}
+
+                                <span class="badge bg-success">
+                                    Active
+                                </span>
+                            {% else %}
+
+                                <span class="badge bg-secondary">
+                                    Inactive
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="7"
+                            class="text-center">
+
+                            No members found
+
+                        </td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,219 @@
+{% extends "admin_base.html" %}
+
+
+{% block title %}
+Backup & Restore Settings
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+
+<div>
+
+<h2 class="fw-bold">
+
+Backup & Restore Settings
+
+</h2>
+
+
+<p class="text-muted">
+
+Configure CampusPay database backup preferences.
+
+</p>
+
+</div>
+
+
+
+<div>
+
+<a href="{% url 'administration:dashboard' %}"
+class="btn btn-outline-secondary">
+
+
+<i class="bi bi-arrow-left me-2"></i>
+
+Back 
+
+
+</a>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+<form method="post">
+
+{% csrf_token %}
+
+
+
+<h5 class="fw-bold mb-4">
+
+Backup Configuration
+
+</h5>
+
+
+
+
+<div class="row g-4">
+
+
+
+<div class="col-md-6">
+
+<div class="form-check form-switch">
+
+{{ form.automatic_backup }}
+
+<label class="form-check-label">
+
+Enable Automatic Backup
+
+</label>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Backup Frequency
+
+</label>
+
+
+{{ form.backup_frequency }}
+
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Storage Location
+
+</label>
+
+
+{{ form.storage_location }}
+
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Backup Status
+
+</label>
+
+
+{{ form.backup_status }}
+
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+
+<div class="form-check">
+
+
+{{ form.is_active }}
+
+
+<label class="form-check-label">
+
+Enable Backup Module
+
+</label>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<button class="btn btn-success w-100 mt-4">
+
+
+Save Backup Settings
+
+
+<i class="bi bi-database-check ms-2"></i>
+
+
+</button>
+
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+{% endblock %}

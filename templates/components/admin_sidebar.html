@@ -1,0 +1,150 @@
+{% load static %}
+
+<div class="sidebar">
+
+    <!-- Logo Header -->
+    <div class="sidebar-header">
+
+        {% if branding.logo %}
+
+<img src="{{ branding.logo.url }}"
+     class="logo"
+     alt="CampusPay Logo">
+
+{% else %}
+
+<img src="{% static 'images/logo/cp-logo.svg' %}"
+     class="logo"
+     alt="CampusPay Logo">
+
+{% endif %}
+             
+
+        <h4>
+
+{{ system_settings.system_name }}
+
+</h4>
+
+<small>
+
+{% if association %}
+
+{{ association.association_name }}
+
+{% else %}
+
+Reliable Payment Management
+
+{% endif %}
+
+</small>
+
+    </div>
+
+
+    <hr class="sidebar-divider">
+
+
+    <!-- Navigation -->
+
+    <ul class="nav flex-column">
+
+
+        <li class="nav-item">
+    <a href="{% url 'dashboard:home' %}"
+       class="nav-link {% if active_section == 'dashboard' %}active{% endif %}">
+        <i class="bi bi-speedometer2"></i>
+        <span>Dashboard</span>
+    </a>
+</li>
+
+
+
+        <li class="nav-item">
+    <a href="{% url 'members:list' %}"
+       class="nav-link {% if active_section == 'members' %}active{% endif %}">
+        <i class="bi bi-people"></i>
+        <span>Members</span>
+    </a>
+</li>
+
+
+
+        <li class="nav-item">
+    <a href="{% url 'finance:dashboard' %}"
+       class="nav-link {% if active_section == 'finance' %}active{% endif %}">
+        <i class="bi bi-wallet2"></i>
+        <span>Finance</span>
+    </a>
+</li>
+
+
+        <li class="nav-item">
+    <a href="{% url 'finance:receipt-list' %}"
+       class="nav-link {% if active_section == 'receipts' %}active{% endif %}">
+        <i class="bi bi-receipt"></i>
+        <span>Receipts</span>
+    </a>
+</li>
+
+       <li class="nav-item">
+
+    <a href="{% url 'reports:dashboard' %}"
+       class="nav-link {% if active_section == 'reports' %}active{% endif %}">
+
+        <i class="bi bi-bar-chart-fill"></i>
+
+        <span>Reports</span>
+
+    </a>
+
+</li>
+
+
+
+        <li class="nav-item">
+
+    <a href="{% url 'administration:dashboard' %}"
+       class="nav-link {% if active_section == 'settings' %}active{% endif %}">
+
+        <i class="bi bi-gear-fill"></i>
+
+        <span>Settings</span>
+
+    </a>
+
+</li>
+
+        <li class="nav-item">
+
+    <a class="nav-link d-flex justify-content-between align-items-center"
+       href="{% url 'portal:reset-request-list' %}">
+
+        <span class="text-truncate">
+
+        <i class="bi bi-key"></i>
+
+        Password Reset Requests
+
+        </span>
+
+        {% if pending_reset_requests %}
+
+        <span class="badge bg-danger rounded-pill">
+
+            {{ pending_reset_requests }}
+
+        </span>
+
+        {% endif %}
+
+    </a>
+
+</li>
+
+
+    </ul>
+
+
+</div>
