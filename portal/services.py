@@ -6,21 +6,74 @@ from .models import PasswordResetAudit
 
 class StudentPortalService:
     """
-    Handles student dashboard data.
-    """
+    Handles student portal dashboard data.
 
+    The portal does not perform its own financial calculations.
+    It reuses the existing Finance and Balance services.
+    """
 
     @staticmethod
     def get_student_dashboard(member):
 
+        # --------------------------------------------------
+        # CURRENT FEE STRUCTURE
+        # --------------------------------------------------
+
+        fee_structure = (
+            FeeStructure.objects
+            .select_related(
+                "semester",
+                "semester__academic_year",
+                "department",
+            )
+            .filter(
+                department=member.department,
+                level=member.level,
+                semester__is_active=True,
+                semester__academic_year__is_current=True,
+            )
+            .first()
+        )
+
+        # --------------------------------------------------
+        # NO CURRENT FEE
+        # --------------------------------------------------
+
+        if not fee_structure:
+
+            return {
+                "current_academic_year": None,
+                "current_semester": None,
+                "fee_structure": None,
+                "total_fee": 0,
+                "total_paid": 0,
+                "outstanding": 0,
+                "status": "NO FEE",
+                "payments": Payment.objects.none(),
+                "latest_payment": None,
+            }
+
+        # --------------------------------------------------
+        # CURRENT ACADEMIC PERIOD
+        # --------------------------------------------------
+
+        semester = fee_structure.semester
+        academic_year = semester.academic_year
+
+        # --------------------------------------------------
+        # CURRENT PAYMENTS
+        # --------------------------------------------------
 
         payments = (
             Payment.objects
             .filter(
-                member=member
+                member=member,
+                fee_structure=fee_structure,
             )
             .select_related(
                 "fee_structure",
+                "fee_structure__semester",
+                "fee_structure__semester__academic_year",
                 "receipt",
             )
             .order_by(
@@ -28,98 +81,57 @@ class StudentPortalService:
             )
         )
 
+        latest_payment = payments.first()
 
-        latest_payment = (
-            payments.first()
+        # --------------------------------------------------
+        # FINANCIAL CALCULATIONS
+        # --------------------------------------------------
+
+        total_fee = (
+            BalanceService.total_fee(
+                fee_structure
+            )
         )
 
-
-        total_paid = sum(
-            payment.amount_paid
-            for payment in payments
+        total_paid = (
+            BalanceService.total_paid(
+                member,
+                fee_structure,
+            )
         )
 
-
-        fee_structure = (
-            FeeStructure.objects
-            .filter(
-                department=member.department,
-                level=member.level,
-                semester__is_active=True,
+        outstanding = (
+            BalanceService.outstanding_balance(
+                member,
+                fee_structure,
             )
-            .first()
         )
 
-
-        if fee_structure:
-
-
-            total_fee = (
-                BalanceService.total_fee(
-                    fee_structure
-                )
+        status = (
+            BalanceService.payment_status(
+                member,
+                fee_structure,
             )
+        )
 
-
-            outstanding = (
-                total_fee - total_paid
-            )
-
-
-            if total_paid == 0:
-
-                status = "UNPAID"
-
-            elif outstanding > 0:
-
-                status = "PARTIAL"
-
-            else:
-
-                status = "PAID"
-
-
-
-        else:
-
-            total_fee = 0
-
-            outstanding = 0
-
-            status = "NO FEE"
-
-
+        # --------------------------------------------------
+        # RETURN DASHBOARD DATA
+        # --------------------------------------------------
 
         return {
-
-            "total_fee":
-                total_fee,
-
-
-            "total_paid":
-                total_paid,
-
-
-            "outstanding":
-                outstanding,
-
-
-            "status":
-                status,
-
-
-            "payments":
-                payments,
-
-
-            "latest_payment":
-                latest_payment,
-
+            "current_academic_year": academic_year,
+            "current_semester": semester,
+            "fee_structure": fee_structure,
+            "total_fee": total_fee,
+            "total_paid": total_paid,
+            "outstanding": outstanding,
+            "status": status,
+            "payments": payments,
+            "latest_payment": latest_payment,
         }
 
 
 class AuditService:
-
 
     @staticmethod
     def log(
@@ -132,25 +144,14 @@ class AuditService:
 
         ip_address = None
 
-
         if request:
-
-            ip_address = (
-                request.META.get(
-                    "REMOTE_ADDR"
-                )
+            ip_address = request.META.get(
+                "REMOTE_ADDR"
             )
 
-
         PasswordResetAudit.objects.create(
-
             user=user,
-
             action=action,
-
             description=description,
-
             ip_address=ip_address,
-
-        )        
-        
+        )
