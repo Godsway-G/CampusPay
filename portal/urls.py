@@ -2,11 +2,14 @@ from django.urls import path
 
 from .views import (
     StudentDashboardView,
+    StudentProfileView,
     StudentLoginView,
+    StudentPaymentsView,
     StudentPasswordChangeView,
     PasswordResetRequestView,
     PasswordResetRequestListView,
     PasswordResetRequestDetailView,
+    StudentReceiptsView,
     approve_reset_request,
     reject_reset_request,
 )
@@ -74,5 +77,22 @@ urlpatterns = [
         AuditLogListView.as_view(),
         name="audit-logs",
     ),
+     
+     path(
+       "profile/",
+       StudentProfileView.as_view(),
+       name="profile",
+    ),
+     path(
+       "payments/",
+       StudentPaymentsView.as_view(),
+       name="payments",
+    ),
+     
+    path(
+        "receipts/",
+        StudentReceiptsView.as_view(),
+        name="receipts",
+), 
 
 ]

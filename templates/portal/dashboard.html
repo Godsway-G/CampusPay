@@ -1,155 +1,199 @@
-{% extends "student_base.html" %}
+ {% extends "student_base.html" %}
+{% load humanize %}
 
-
-{% block title %}
-Student Dashboard
-{% endblock %}
-
-
+{% block title %}Student Dashboard | CampusPay{% endblock %}
 
 {% block content %}
+<div class="student-dashboard">
 
+    <!-- Page heading -->
+    <section class="student-welcome mb-4">
+        <div>
+            <span class="student-eyebrow">STUDENT PORTAL</span>
+            <h1>Welcome, {{ member.first_name }}!</h1>
+            <p>Here is an overview of your academic fees and payments.</p>
+        </div>
 
-<div class="container-fluid">
+        <div class="student-identity">
+            <div class="student-avatar">
+                {% if member.photo %}
+                    <img src="{{ member.photo.url }}" alt="{{ member.full_name }}">
+                {% else %}
+                    <i class="bi bi-person-circle"></i>
+                {% endif %}
+            </div>
 
+            <div>
+                <strong>{{ member.full_name }}</strong>
+                <span>{{ member.student_id }}</span>
+            </div>
+        </div>
+    </section>
 
-<div class="mb-4">
+    <!-- Student academic information -->
+    <section class="student-academic-summary mb-4">
+        <div class="academic-detail">
+            <span>Department</span>
+            <strong>{{ member.department.name }}</strong>
+        </div>
 
-<h2 class="fw-bold">
+        <div class="academic-detail">
+            <span>Current level</span>
+            <strong>{{ member.get_level_display }}</strong>
+        </div>
 
-Welcome Student
+        <div class="academic-detail">
+            <span>Academic year</span>
+            <strong>
+                {% if current_academic_year %}
+                    {{ current_academic_year.name }}
+                {% else %}
+                    Not configured
+                {% endif %}
+            </strong>
+        </div>
 
-</h2>
+        <div class="academic-detail">
+            <span>Semester</span>
+            <strong>
+                {% if current_semester %}
+                    {{ current_semester.get_semester_display }}
+                {% else %}
+                    Not configured
+                {% endif %}
+            </strong>
+        </div>
+    </section>
 
+    <!-- Fee summary -->
+    <section class="mb-4">
+        <div class="student-section-heading">
+            <div>
+                <h2>Fee overview</h2>
+                <p>Your current academic fee summary</p>
+            </div>
+        </div>
 
-<p class="text-muted">
+        <div class="row g-3">
 
-Manage your payments and academic fees.
+            <div class="col-12 col-sm-6 col-xl-3">
+                <article class="student-stat-card stat-fee">
+                    <div class="stat-icon">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+                    <span>Total fee</span>
+                    <h3>GH₵ {{ total_fee|floatformat:2|intcomma }}</h3>
+                    <small>Required academic fee</small>
+                </article>
+            </div>
 
-</p>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <article class="student-stat-card stat-paid">
+                    <div class="stat-icon">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                    <span>Amount paid</span>
+                    <h3>GH₵ {{ total_paid|floatformat:2|intcomma }}</h3>
+                    <small>Total recorded payments</small>
+                </article>
+            </div>
 
+            <div class="col-12 col-sm-6 col-xl-3">
+                <article class="student-stat-card stat-outstanding">
+                    <div class="stat-icon">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+                    <span>Outstanding balance</span>
+                    <h3>GH₵ {{ outstanding|floatformat:2|intcomma }}</h3>
+                    <small>Remaining amount to pay</small>
+                </article>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-3">
+                <article class="student-stat-card stat-status">
+                    <div class="stat-icon">
+                        <i class="bi bi-clipboard-check"></i>
+                    </div>
+                    <span>Payment status</span>
+                    <h3 class="status-value">
+                        {% if status == "PAID" %}
+                            Paid
+                        {% elif status == "PARTIAL" %}
+                            Partially paid
+                        {% elif status == "UNPAID" %}
+                            Unpaid
+                        {% else %}
+                            No fee assigned
+                        {% endif %}
+                    </h3>
+                    <small>Current fee settlement</small>
+                </article>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Recent payments -->
+    <section class="student-payments-section">
+        <div class="student-section-heading">
+            <div>
+                <h2>Recent payments</h2>
+                <p>Your latest recorded transactions</p>
+            </div>
+        </div>
+
+        {% if fee_structure and payments %}
+            <div class="table-responsive student-table-wrapper">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Payment reference</th>
+                            <th>Method</th>
+                            <th class="text-end">Amount</th>
+                            <th class="text-center">Receipt</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for payment in payments|slice:":5" %}
+                            <tr>
+                                <td>{{ payment.payment_date|date:"d M Y" }}</td>
+                                <td>
+                                    <strong>{{ payment.payment_id }}</strong>
+                                </td>
+                                <td>{{ payment.get_payment_method_display }}</td>
+                                <td class="text-end fw-semibold">
+                                    GH₵ {{ payment.amount_paid|floatformat:2|intcomma }}
+                                </td>
+                                <td class="text-center">
+                                    {% if payment.receipt %}
+                                        <span class="receipt-indicator">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            Available
+                                        </span>
+                                    {% else %}
+                                        <span class="text-muted">Pending</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="student-empty-state">
+                <i class="bi bi-receipt"></i>
+                {% if fee_structure %}
+                    <h3>No payments recorded yet</h3>
+                    <p>Your recorded payments will appear here.</p>
+                {% else %}
+                    <h3>No fee structure available</h3>
+                    <p>Your current academic fee has not been configured or assigned yet. Please contact the finance office.</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </section>
 
 </div>
-
-
-
-<div class="row g-4">
-
-
-<div class="col-md-3">
-
-<div class="card shadow-sm border-0">
-
-<div class="card-body">
-
-<small class="text-muted">
-Total Fee
-</small>
-
-
-<h3 class="fw-bold">
-
-GH₵ {{ total_fee }}
-
-</h3>
-
-
-</div>
-
-</div>
-
-</div>
-
-
-
-
-<div class="col-md-3">
-
-<div class="card shadow-sm border-0">
-
-<div class="card-body">
-
-
-<small class="text-muted">
-Paid
-</small>
-
-
-<h3 class="fw-bold">
-
-GH₵ {{ total_paid }}
-
-</h3>
-
-
-</div>
-
-</div>
-
-</div>
-
-
-
-
-<div class="col-md-3">
-
-<div class="card shadow-sm border-0">
-
-
-<div class="card-body">
-
-
-<small class="text-muted">
-Outstanding
-</small>
-
-
-<h3 class="fw-bold">
-
-GH₵ {{ outstanding }}
-
-</h3>
-
-
-</div>
-
-
-</div>
-
-</div>
-
-
-
-
-<div class="col-md-3">
-
-<div class="card shadow-sm border-0">
-
-
-<div class="card-body">
-
-
-<small class="text-muted">
-Status
-</small>
-
-
-<h3 class="fw-bold">
-
-{{ status }}
-
-</h3>
-
-
-</div>
-
-
-</div>
-
-</div>
-
-
-</div>
-
-
 {% endblock %}

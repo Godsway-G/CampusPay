@@ -35,7 +35,8 @@ from .services import PaymentService
 from members.models import Member
 from administration.services.academic_defaults import AcademicConfigurationService
 from django.core.cache import cache
-from .pdf import generate_receipt_pdf 
+from .pdf import generate_receipt_pdf
+from django.shortcuts import get_object_or_404 
 
 # =====================================================
 # Dashboard
@@ -634,25 +635,42 @@ class ReceiptListView(
         return context
 
 
+
 class ReceiptDetailView(
     LoginRequiredMixin,
     DetailView,
 ):
     model = Receipt
-
     template_name = "finance/receipt_detail.html"
-
     context_object_name = "receipt"
 
+    def get_queryset(self):
+        queryset = super().get_queryset().select_related(
+            "payment",
+            "payment__member",
+            "payment__member__user",
+            "payment__fee_structure",
+            "payment__fee_structure__semester",
+        )
+
+        user = self.request.user
+
+        # Staff can retain access to finance receipts.
+        if user.is_staff:
+            return queryset
+
+        # Students can access only receipts linked to their account.
+        return queryset.filter(
+            payment__member__user=user
+        )
+
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
-
         context["receipt_settings"] = (
             ReceiptSettings.objects.first()
         )
-
         return context
+
     
     
     
@@ -792,14 +810,7 @@ class MemberPaymentHistoryView(AdminRequiredMixin,DetailView
         )
 
 
-        return context    
-    
-    
-    
-    
-    
-    
-
+        return context        
 
 
 
@@ -816,5 +827,24 @@ class ReceiptPDFView(AdminRequiredMixin, View):
 
         return generate_receipt_pdf(
             receipt
-        )   
+        ) 
+        
+
+class StudentReceiptPDFView(LoginRequiredMixin, View):
+
+    def get(self, request, pk):
+        receipt = get_object_or_404(
+            Receipt.objects.select_related(
+                "payment",
+                "payment__member",
+                "payment__fee_structure",
+                "payment__fee_structure__semester",
+            ).filter(
+                payment__member__user=request.user
+            ),
+            pk=pk,
+        )
+
+        return generate_receipt_pdf(receipt)
+          
     

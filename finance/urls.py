@@ -21,6 +21,7 @@ from .views import (
     MemberPaymentHistoryView,
     ReceiptPDFView,
     ReceiptListView,
+    StudentReceiptPDFView,
 )
 from .views import PaymentBalanceAPIView
 
@@ -139,4 +140,12 @@ urlpatterns = [
         MemberPaymentHistoryView.as_view(),
         name="member-payment-history",
         ),
+    
+    
+    path(
+        "receipts/<int:pk>/student-pdf/",
+        StudentReceiptPDFView.as_view(),
+        name="student-receipt-pdf",
+    ),
+
 ]

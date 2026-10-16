@@ -1,0 +1,84 @@
+
+{% extends "student_base.html" %}
+
+{% block title %}My Profile | CampusPay{% endblock %}
+
+{% block content %}
+<div class="student-dashboard">
+    <section class="student-welcome mb-4">
+        <div>
+            <span class="student-eyebrow">STUDENT PORTAL</span>
+            <h1>My Profile</h1>
+            <p>View your personal and academic information.</p>
+        </div>
+    </section>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <div class="text-center mb-4">
+                {% if member.photo %}
+                    <img
+                        src="{{ member.photo.url }}"
+                        alt="{{ member.full_name }}"
+                        class="rounded-circle mb-3"
+                        style="width: 90px; height: 90px; object-fit: cover;"
+                    >
+                {% else %}
+                    <i class="bi bi-person-circle display-3 text-secondary"></i>
+                {% endif %}
+
+                <h2 class="h4 mb-1">{{ member.full_name }}</h2>
+                <p class="text-muted mb-0">{{ member.student_id }}</p>
+            </div>
+
+            <hr>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <small class="text-muted d-block">First name</small>
+                    <strong>{{ member.first_name }}</strong>
+                </div>
+
+                <div class="col-md-6">
+                    <small class="text-muted d-block">Last name</small>
+                    <strong>{{ member.last_name }}</strong>
+                </div>
+
+                <div class="col-md-6">
+                    <small class="text-muted d-block">Email address</small>
+                    <strong>{{ member.email|default:"Not provided" }}</strong>
+                </div>
+
+                <div class="col-md-6">
+                    <small class="text-muted d-block">Phone number</small>
+                    <strong>{{ member.phone|default:"Not provided" }}</strong>
+                </div>
+
+                <div class="col-md-6">
+                    <small class="text-muted d-block">Gender</small>
+                    <strong>{{ member.get_gender_display|default:"Not provided" }}</strong>
+                </div>
+
+                <div class="col-md-6">
+                    <small class="text-muted d-block">Department</small>
+                    <strong>{{ member.department.name }}</strong>
+                </div>
+
+                <div class="col-md-6">
+                    <small class="text-muted d-block">Current level</small>
+                    <strong>{{ member.get_level_display }}</strong>
+                </div>
+
+                <div class="col-md-6">
+                    <small class="text-muted d-block">Account status</small>
+                    {% if member.active %}
+                        <span class="badge text-bg-success">Active</span>
+                    {% else %}
+                        <span class="badge text-bg-secondary">Inactive</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

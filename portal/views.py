@@ -34,6 +34,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect, render
 from members.services import MemberService
+from finance.models import Payment
+from finance.models import Receipt
 
 
 class StudentDashboardView(LoginRequiredMixin,TemplateView
@@ -137,6 +139,135 @@ class StudentDashboardView(LoginRequiredMixin,TemplateView
         return context
 
 
+
+class StudentProfileView(LoginRequiredMixin, TemplateView):
+    template_name = "portal/profile.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.role != "STUDENT":
+            messages.error(
+                request,
+                "This page is only available to students."
+            )
+            return redirect("accounts:login")
+
+        try:
+            request.user.member_profile
+        except Member.DoesNotExist:
+            messages.error(
+                request,
+                "No student profile is linked to your account."
+            )
+            return redirect("accounts:login")
+
+        if request.user.must_change_password:
+            messages.warning(
+                request,
+                "Please change your temporary password first."
+            )
+            return redirect("portal:change_password")
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["member"] = self.request.user.member_profile
+        return context
+
+
+
+class StudentPaymentsView(LoginRequiredMixin, TemplateView):
+    template_name = "portal/payments.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.role != "STUDENT":
+            messages.error(
+                request,
+                "This page is only available to students."
+            )
+            return redirect("accounts:login")
+
+        try:
+            request.user.member_profile
+        except Member.DoesNotExist:
+            messages.error(
+                request,
+                "No student profile is linked to your account."
+            )
+            return redirect("accounts:login")
+
+        if request.user.must_change_password:
+            messages.warning(
+                request,
+                "Please change your temporary password first."
+            )
+            return redirect("portal:change_password")
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        member = self.request.user.member_profile
+
+        context["member"] = member
+        context["payments"] = (
+            Payment.objects
+            .filter(member=member)
+            .select_related(
+                "fee_structure",
+                "fee_structure__department",
+                "fee_structure__semester",
+                "fee_structure__semester__academic_year",
+            )
+            .prefetch_related("receipt")
+            .order_by("-payment_date")
+        )
+
+        return context
+    
+    
+
+class StudentReceiptsView(LoginRequiredMixin, TemplateView):
+    template_name = "portal/receipts.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+
+        if getattr(request.user, "role", None) != "STUDENT":
+            return redirect("dashboard")
+
+        if not hasattr(request.user, "member_profile"):
+            messages.error(
+                request,
+                "Your account is not linked to a student profile.",
+            )
+            return redirect("portal:dashboard")
+
+        if request.user.must_change_password:
+            return redirect("portal:change-password")
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        member = self.request.user.member_profile
+
+        context["member"] = member
+        context["receipts"] = (
+            Receipt.objects.filter(payment__member=member)
+            .select_related(
+                "payment",
+                "payment__fee_structure",
+                "payment__fee_structure__semester",
+                "payment__fee_structure__semester__academic_year",
+            )
+            .order_by("-generated_at")
+        )
+
+        return context
+    
 
 
 
